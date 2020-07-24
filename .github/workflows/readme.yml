@@ -1,0 +1,18 @@
+name: Readme
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 * * * *'
+
+jobs:
+  write_readme:
+    name: 'Write Readme'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Clone'
+        uses: actions/checkout@master
+      - name: 'Deps'
+        run: npm i
+      - name: 'Write'
+        run: node readme.js
