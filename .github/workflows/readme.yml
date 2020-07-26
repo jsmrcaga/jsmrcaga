@@ -1,6 +1,9 @@
 name: Readme
 
 on:
+  push:
+    branches:
+      - master
   workflow_dispatch:
   schedule:
     - cron: '0 * * * *'
@@ -11,8 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Clone'
-        uses: actions/checkout@master
+        uses: actions/checkout@main
       - name: 'Deps'
         run: npm i
       - name: 'Write'
-        run: node readme.js
+        run: node src/index.js

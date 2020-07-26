@@ -1,0 +1,19 @@
+{
+  "name": "jsmrcaga",
+  "version": "0.0.0",
+  "description": "<!-- **jsmrcaga/jsmrcaga** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsmrcaga/jsmrcaga.git"
+  },
+  "author": "Jo Colina <jo@jocolina.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jsmrcaga/jsmrcaga/issues"
+  },
+  "homepage": "https://github.com/jsmrcaga/jsmrcaga#readme"
+}
