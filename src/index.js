@@ -13,7 +13,10 @@ readme.add(new Text({
 }));
 
 readme.add(new Quote({
-	text: 'Feel free to roam around!'
+	text: 'What I\'m currently listening to:'
 }));
 
+readme.add(new Image({
+	src: 'https://0v23gxo0l1.execute-api.eu-west-3.amazonaws.com/default/spotify.svg',
+}));
 readme.end();

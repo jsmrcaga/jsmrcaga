@@ -19,3 +19,19 @@ jobs:
         run: npm i
       - name: 'Write'
         run: node src/index.js
+
+  # deploy_lambda:
+  #   name: 'Deploy lambda'
+  #   runs-on: ubuntu-latest
+  #   working-directory: lambda
+  #   steps:
+  #     - name: 'Install AWS CLI'
+  #       run: |
+  #         curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+  #         unzip awscliv2.zip
+  #         sudo ./aws/install
+  #         rm -r ./aws
+  #     - name: 'Zip Code'
+  #       run: zip -r lambda.zip *
+  #     - name: 'Deploy lambda'
+  #       run: aws lambda update-function-code --function-name github-readme --zip-file fileb://lambda.zip --region eu-west-3
