@@ -16,7 +16,7 @@ class Image extends Component {
 			}
 		}
 
-		return `${prefix} ${query} src=${this.src}/>`;
+		return `${prefix} ${query} src="${this.src}"/>`;
 	}
 }
 
