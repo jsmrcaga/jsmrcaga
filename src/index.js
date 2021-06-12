@@ -19,4 +19,9 @@ readme.add(new Quote({
 readme.add(new Image({
 	src: 'https://0v23gxo0l1.execute-api.eu-west-3.amazonaws.com/default/spotify.svg',
 }));
+
+readme.add(new Text({
+	text: 'If you want to know more you can read my resume on [resume.md](/resume.md)'
+}));
+
 readme.end();
