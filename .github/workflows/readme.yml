@@ -4,7 +4,9 @@ on:
   push:
     branches:
       - master
-  workflow_dispatch:
+  release:
+    types:
+      - published
 
 jobs:
   write_readme:
@@ -19,27 +21,24 @@ jobs:
         run: node src/index.js
       - name: 'Commit'
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
           git add README.md
           git commit -m "Updated README from GitHub action"
       - name: 'Push'
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+        run: git push -u origin master
 
-  # deploy_lambda:
-  #   name: 'Deploy lambda'
-  #   runs-on: ubuntu-latest
-  #   working-directory: lambda
-  #   steps:
-  #     - name: 'Install AWS CLI'
-  #       run: |
-  #         curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-  #         unzip awscliv2.zip
-  #         sudo ./aws/install
-  #         rm -r ./aws
-  #     - name: 'Zip Code'
-  #       run: zip -r lambda.zip *
-  #     - name: 'Deploy lambda'
-  #       run: aws lambda update-function-code --function-name github-readme --zip-file fileb://lambda.zip --region eu-west-3
+  deploy_lambda:
+    name: 'Deploy lambda'
+    runs-on: ubuntu-latest
+
+    defaults:
+      working-directory: lambda
+
+    if: ${{ github.event_name == 'release' }}
+    steps:
+      - uses: jsmrcaga/action-easy-lambda-deploy@latest
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        with:
+          function_name: github-readme
+          region: eu-west-3
