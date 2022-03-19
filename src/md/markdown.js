@@ -3,9 +3,9 @@ const fs = require('fs');
 const { Title, Quote, Table, Image, Link, Text } = require('./components');
 
 class Markdown {
-	constructor({ filename='README.md' }={}) {
+	constructor({ filename='./README.md' }={}) {
 		this.filename = filename;
-		this.file = fs.createWriteStream(`./${this.filename}`);
+		this.file = fs.createWriteStream(this.filename);
 	}
 
 	add(section) {
