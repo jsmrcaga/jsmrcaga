@@ -31,7 +31,8 @@ jobs:
     runs-on: ubuntu-latest
 
     defaults:
-      working-directory: lambda
+      run:
+        working-directory: lambda
 
     if: ${{ github.event_name == 'release' }}
     steps:
