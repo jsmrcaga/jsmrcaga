@@ -26,7 +26,11 @@
       }
     </style>
   </defs>
-  <image width="104.306" height="104.306" x="0" y="0" style="" xlink:href="data:image/png;base64,{image}"/>
-  <text style="font-size: 28px;" x="120" y="40" dx="0" dy="0">{name}</text>
-  <text style="font-size: 20.1px;" x="120" y="70" dx="0" dy="0">{artist}</text>
+  <a href="{url}" target="_blank">
+    <g>
+      <image width="104.306" height="104.306" x="0" y="0" style="" xlink:href="data:image/png;base64,{image}"/>
+      <text style="font-size: 28px;" x="120" y="40" dx="0" dy="0">{name}</text>
+      <text style="font-size: 20.1px;" x="120" y="70" dx="0" dy="0">{artist}</text>
+    </g>
+  </a>
 </svg>

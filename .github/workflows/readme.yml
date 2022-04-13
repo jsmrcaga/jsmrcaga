@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - master
-  release:
-    types:
-      - published
 
 jobs:
   write_readme:
@@ -27,21 +24,3 @@ jobs:
           git commit -m "Updated README from GitHub action"
       - name: 'Push'
         run: git push -u origin master
-
-  deploy_lambda:
-    name: 'Deploy lambda'
-    runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: lambda
-
-    if: ${{ github.event_name == 'release' }}
-    steps:
-      - uses: jsmrcaga/action-easy-lambda-deploy@latest
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        with:
-          function_name: github-readme
-          region: eu-west-3

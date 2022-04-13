@@ -22,7 +22,8 @@ const handler = (event, context, callback) => {
 			track = {
 				artist: '',
 				name: 'Nothing playing...',
-				image: 'https://www.pngitem.com/pimgs/m/493-4931443_border-squares-square-shadow-shadows-ftestickers-png-white.png'
+				image: 'https://www.pngitem.com/pimgs/m/493-4931443_border-squares-square-shadow-shadows-ftestickers-png-white.png',
+				url: '#'
 			}
 		}
 

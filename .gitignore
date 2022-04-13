@@ -9,3 +9,6 @@ lambda/lambda.zip
 **/.terraform/
 
 reddit.js
+
+**/aws.cred
+**/dummy_lambda.zip

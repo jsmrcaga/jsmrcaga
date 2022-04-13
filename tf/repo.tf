@@ -7,4 +7,11 @@ module repo {
   visibility = "public"
 
   topics = ["readme", "personal", "resume"]
+
+  actions = {
+    secrets = {
+      AWS_ACCESS_KEY_ID = var.aws.key_id
+      AWS_SECRET_ACCESS_KEY = var.aws.secret
+    }
+  }
 }
