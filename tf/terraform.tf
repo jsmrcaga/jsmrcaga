@@ -20,3 +20,8 @@ provider "cloudflare" {
 provider "github" {
   token = var.github.token
 }
+
+provider "aws" {
+  region = "eu-west-3"
+  shared_credentials_file = "./aws.cred"
+}

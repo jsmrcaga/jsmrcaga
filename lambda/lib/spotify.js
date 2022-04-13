@@ -44,11 +44,12 @@ class Spotify {
 				return null;
 			}
 
-			let { item } = JSON.parse(response);
+			const { item } = JSON.parse(response);
 			return {
 				image: item.album.images[0].url,
 				artist: item.artists[0].name,
-				name: item.name
+				name: item.name,
+				url: item.external_urls.spotify
 			};
 		});
 	}
