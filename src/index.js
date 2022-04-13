@@ -17,7 +17,7 @@ readme.add(new Quote({
 }));
 
 readme.add(new Image({
-	src: 'https://0v23gxo0l1.execute-api.eu-west-3.amazonaws.com/default/spotify.svg',
+	src: 'https://fnk57fny03.execute-api.eu-west-3.amazonaws.com/spotify.svg',
 }));
 
 readme.add(new Text({
