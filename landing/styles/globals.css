@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Germania+One&display=swap');
+
+html,
+body {
+  scroll-behavior: smooth;
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, Manrope, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --background-primary: #202020;
+  --background-secondary: #EEEDE2;
+
+  --text-primary: #FFFFFF;
+  --text-secondary: #202020;
+
+  --scroll-x: 0;
+  --scroll-y: 0;
+}
+
+strong {
+  font-weight: 800;
+}
+
+body {
+  background-color: var(--background-primary);
+  scroll-behavior: smooth;
+}
+
+p {
+  color: #b2b2b2;
+}

@@ -1,0 +1,142 @@
+.a {
+	display: contents;
+}
+
+.card-group {
+	--col-width: 300px;
+	display: grid;
+	gap: 2rem;
+	width: 100%;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	
+	padding: 0px 50px;
+	scroll-padding: 100px;
+
+	grid-auto-flow: column;
+	grid-template-columns: var(--col-width);
+	grid-auto-columns: var(--col-width);
+
+ 	scrollbar-width: none;
+	-ms-overflow-style: none;
+	color: var(--text-primary);
+}
+
+.card-group::-webkit-scrollbar {
+	display: none;
+}
+
+
+.card {
+	cursor: pointer;
+	position: relative;
+	border-radius: 1.5rem;
+	padding: 15px 20px;
+	overflow: hidden;
+	min-height: 400px;
+	grid-column: span var(--colspan);
+}
+
+.card .tags {
+	transition: transform 0.05s ease-in-out;
+	transform: translate(calc(var(--mouse-x) * -5px), calc(var(--mouse-y) * -5px));
+}
+
+.card ul {
+	display: flex;
+	list-style: none;
+	padding: 0;
+}
+
+.card ul li {
+	text-decoration: none;
+	background-color: black;
+	border: 1px solid rgba(177, 177, 177, 0.1);
+	border-radius: 50px;
+	padding: 5px 12px;
+	font-size: 0.8rem;
+}
+
+.card ul li:not(:last-child) {
+	margin-right: 1rem;
+}
+
+.card.transparent {
+	backdrop-filter: blur(10px);
+	background-color: rgba(255, 255, 255, 0.03);
+}
+
+.card.transparent .background {
+	display: none;
+}
+
+.card .background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 200%;
+	height: 200%;
+	z-index: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	pointer-events: none;
+
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+
+	filter: brightness(var(--brightness, 1)) blur(var(--blur, 0));
+
+	transition: transform 0.05s ease-in-out;
+	transform: translate(
+		calc(
+			-25% +
+			calc(var(--mouse-x, 0) * -50px)
+		),
+		calc(
+			-25% +
+			calc(var(--mouse-y, 0) * -50px)
+		)
+	);
+}
+
+.card .background img {
+	min-width: 150%;
+	min-height: 200%;
+}
+
+.card .content {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.card .text {
+	margin-top: auto;
+	padding: 0px 10px;
+	font-family: 'Germania One', cursive;
+
+	transition: transform 0.05s ease-in-out;
+	transform: translate(calc(var(--mouse-x) * -10px), calc(var(--mouse-y) * -10px));
+}
+
+.card .description {
+	position: relative;
+	height: 0;
+	overflow: hidden;
+	transition: height 0.2s ease-in-out;
+	font-size: 1.1rem;
+	opacity: 0.6;
+	font-family: Manrope;
+}
+
+.card:hover .description {
+	height:  auto;
+}
+
+.card .title {
+	font-size: 3.5rem;
+}

@@ -12,3 +12,7 @@ reddit.js
 
 **/aws.cred
 **/dummy_lambda.zip
+
+
+landing/.next/
+landing/node_modules/
