@@ -1,0 +1,32 @@
+.section {
+	min-height: 100vh;
+	width: 100%;
+	background-color: var(--background-primary);
+	color: var(--text-primary);
+	overflow: hidden;
+	padding: 3rem 3rem;
+}
+
+.centered {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+
+.secondary {
+	background-color: var(--background-secondary);
+	color: var(--text-secondary);
+}
+
+/* Sticky */
+.sticky {
+	width: 100%;
+	height: var(--height);
+	position: relative;
+}
+
+.sticky .section {
+	position: sticky;
+	top: 0;
+}

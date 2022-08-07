@@ -1,0 +1,10 @@
+.main-title,
+.secondary-title {
+	font-size: 6.5rem;
+}
+
+@media only screen and (max-width: 550px) {
+	.secondary-title {
+		font-size: 4rem;
+	}
+}

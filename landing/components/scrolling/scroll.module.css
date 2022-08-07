@@ -1,0 +1,116 @@
+.animation-scroll-y {
+	--ps: var(--scroll-y, 0);
+}
+
+.animation-scroll-x {
+	--ps: var(--scroll-x, 0);
+}
+
+.animation-scroll {
+	/* This class calculates the "advancement" of the animation */
+	/* by mapping 0-1 to scrollStart & scrollEnd */
+
+	/* Formula:  https://rosettacode.org/wiki/Map_range#ES6 */
+	/* Our value s is truncated (from --ps) to scrollstart and scroll-end */
+	/* a1 = scrollStart and a2 = scrollEnd; because s is the known scroll value*/
+	/* b1 & b2 are 0 and 1 */
+	--s: min(max(var(--ps), var(--scroll-start)), min(var(--scroll-end), var(--ps)));
+	--a1: var(--scroll-start);
+	--a2: var(--scroll-end);
+	--b1: 0;
+	--b2: 1;
+	/* We calculate every factor in a different variable for readability
+		f1 = (s - a1)
+		f2 = (b2 - b1)
+		f3 = (a2 - a1)
+		up = f1 * f2
+		div = (f1 * f2) / f3
+	*/
+	--f1: calc(var(--s) - var(--a1));
+	--f2: calc(var(--b2) - var(--b1));
+	--f3: calc(var(--a2) - var(--a1));
+	--up: calc(var(--f1) * var(--f2));
+	--div: calc(var(--up) / var(--f3));
+
+	/* We are free to get our t value */
+	--t: calc(var(--b1) + var(--div));
+
+	--animation-step: var(--t);
+
+	/* inverting is getting the range 1 - 0 instead of 0 - 1 */
+	/* Since abs() does not work, we can get the max of i * -1 and i*/
+	--inv: calc(var(--animation-step) - 1);
+	--animation-step-inverted: max(calc(var(--inv) * -1), var(--inv));
+}
+
+/* This class allows us to combine multiple transforms from different classes */
+.transformable {
+	transform:
+		var(--matrix, )
+		var(--matrix3d, )
+		var(--perspective, )
+		var(--rotate, )
+		var(--rotate3d, )
+		var(--rotateX, )
+		var(--rotateY, )
+		var(--rotateZ, )
+		var(--translate, )
+		var(--translate3d, )
+		var(--translateX, )
+		var(--translateY, )
+		var(--translateZ, )
+		var(--scale, )
+		var(--scale3d, )
+		var(--scaleX, )
+		var(--scaleY, )
+		var(--scaleZ, )
+		var(--skew, )
+		var(--skewX, )
+		var(--skewY, );
+}
+
+.scale-down {
+	/* Scale is a map-range from 0-1 to 1-1.5 but we can cheat by dividing by 2 directly */
+	/* (s - a1)(b2 - b1) / (a2 - a1) == (s - 0)(1 - 1.5) / (1 - 0) == (s * -0.5) / 1 = s * -0.5 */
+	/* Dont forget to add b1 = 1 => (s * 0.5) + 1*/
+
+	/* i denotes internal */
+	--i-scale: calc(calc(1.5 - var(--animation-step) * 0.5));
+	--scale: scale(var(--i-scale));
+}
+
+/* Scaling */
+.scale-up {
+	--scale: scale(var(--animation-step));
+}
+
+.slide-up {
+	/* same process for ty */
+	/* (s - a1)(b2 - b1) / (a2 - a1) == (s - 0)(0 - 200) / (1 - 0) == (s * -200) / 1 = s * -200 */
+	/* We add b1 = 200 => (s * -200) + 200 */
+	--i-translateY: calc(calc(var(--animation-step) * -100%) + 100%);
+	--translateY: translateY(var(--i-translateY));
+}
+
+.slide-down {
+	--i-translateY: calc(calc(var(--animation-step) * 100%) + -100%);
+	--translateY: translateY(var(--i-translateY));
+}
+
+.slide-left {
+	--i-translateX: calc(calc(var(--animation-step) * -100%) + 100%);
+	--translateX: translateX(var(--i-translateX));
+}
+
+.slide-right {
+	--i-translateX: calc(calc(var(--animation-step) * 100%) + -100%);
+	--translateX: translateX(var(--i-translateX));
+}
+
+.appear {
+	opacity: var(--animation-step);
+}
+
+.fade-out {
+	opacity: var(--animation-step-inverted);
+}

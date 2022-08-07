@@ -1,0 +1,32 @@
+.main-content {
+	max-width: 1200px;
+	margin: 0 auto;
+	width: 100%;
+	padding: 0 20px;
+	z-index: 1;
+}
+
+.scroll-container {
+	overflow-x: hidden;
+	overflow-y: auto;
+	width: 100vw;
+	height: 100vh;
+	transition: scale 0.7s ease-in-out, border-radius 0.5s ease-in-out, box-shadow 0.5s ease-in-out, transform 0.7s ease-in-out;
+}
+
+.minify {
+	scale: 0.75;
+	border-radius: 2rem;
+	box-shadow: 0px 0px 40px 8px rgba(0, 0, 0, 0.1);
+	transform: translateX(0);
+}
+
+.exit {
+	transform: translateX(-150vw);
+}
+
+.enter {
+	/* opacity 0 to make it invisible while translating to right */
+	opacity: 0;
+	transform: translateX(150vw);
+}

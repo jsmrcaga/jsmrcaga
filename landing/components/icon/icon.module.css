@@ -1,0 +1,8 @@
+.icon {
+	display: block;
+	padding: 1.2rem;
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	background: radial-gradient(circle at top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+	background-size: contain;
+}
