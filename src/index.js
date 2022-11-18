@@ -16,9 +16,15 @@ readme.add(new Quote({
 	text: 'What I\'m currently listening to:'
 }));
 
-readme.add(new Image({
-	src: 'https://fnk57fny03.execute-api.eu-west-3.amazonaws.com/spotify.svg',
-}));
+readme.add(
+	new Link({
+		html: true,
+		href: 'https://fnk57fny03.execute-api.eu-west-3.amazonaws.com/spotify',
+		text: new Image({
+			src: 'https://fnk57fny03.execute-api.eu-west-3.amazonaws.com/spotify.svg',
+		})
+	})
+);
 
 readme.add(new Text({
 	text: 'If you want to know more you can read my resume on [resume.md](/resume.md)'

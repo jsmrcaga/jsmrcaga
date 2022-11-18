@@ -1,14 +1,19 @@
 const Component = require('./component');
 
 class Link extends Component {
-	constructor({ text='', link='' }) {
+	constructor({ text='', href='', html=false }) {
 		super();
 		this.text = text;
-		this.link = link;
+		this.href = href;
+		this.html = html;
 	}
 
 	render() {
-		return `[${this.text || this.link}](${this.link})`;
+		if(this.html) {
+			return `<a href="${this.href}" target="_blank">${this.text instanceof Component ? this.text.render() : (this.text || this.href)}</a>`
+		}
+
+		return `[${this.text || this.href}](${this.href})`;
 	}
 }
 

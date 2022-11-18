@@ -31,3 +31,9 @@ resource aws_apigatewayv2_route "route_spotify" {
     api_id = module.svg_lambda.api_gateway_api.id
     target = "integrations/${module.svg_lambda.api_gateway_api_integration.id}"
 }
+
+resource aws_apigatewayv2_route "route_spotify_redirector" {
+    route_key = "GET /spotify"
+    api_id = module.svg_lambda.api_gateway_api.id
+    target = "integrations/${module.svg_lambda.api_gateway_api_integration.id}"
+}
