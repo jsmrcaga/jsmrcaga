@@ -18,6 +18,16 @@ const handler = (event, context, callback) => {
 	Spotify.refreshToken().then(() => {
 		return Spotify.currentTrack();
 	}).then(track => {
+
+		if(!track) {
+			track = {
+				artist: '',
+				name: 'Nothing playing...',
+				image: 'https://www.pngitem.com/pimgs/m/493-4931443_border-squares-square-shadow-shadows-ftestickers-png-white.png',
+				url: '#'
+			}
+		}
+
 		// Used to redirect to spotify from a link
 		if(event.rawPath === '/spotify') {
 			// Redirect to actual track
@@ -28,15 +38,6 @@ const handler = (event, context, callback) => {
 				},
 				body: null,
 			});
-		}
-
-		if(!track) {
-			track = {
-				artist: '',
-				name: 'Nothing playing...',
-				image: 'https://www.pngitem.com/pimgs/m/493-4931443_border-squares-square-shadow-shadows-ftestickers-png-white.png',
-				url: '#'
-			}
 		}
 
 		return SVG.create(track);
