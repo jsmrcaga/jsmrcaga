@@ -19,7 +19,7 @@ const handler = (event, context, callback) => {
 		return Spotify.currentTrack();
 	}).then(track => {
 		// Used to redirect to spotify from a link
-		if(event.path === '/spotify') {
+		if(event.rawPath === '/spotify') {
 			// Redirect to actual track
 			return callback(null, {
 				statusCode: 302,
