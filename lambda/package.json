@@ -9,7 +9,6 @@
   "author": "Jo Colina <jo@jocolina.com>",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1",
     "fishingrod": "^4.1.0"
   }
 }
