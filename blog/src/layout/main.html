@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!-- HTML Meta Tags -->
+	<title>{{ title }} | Jo Colina</title>
+	<meta name="description" content="{{ description }}">
+
+	<!-- Facebook Meta Tags -->
+	<meta property="og:url" content="https://blog.jocolina.com{{ page.url }}">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="{{ title }} | Jo Colina">
+	<meta property="og:description" content="{{ description }}">
+	<meta property="og:image" content="{{ image }}">
+
+	<!-- Twitter Meta Tags -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta property="twitter:domain" content="jocolina.com">
+	<meta property="twitter:url" content="https://blog.jocolina.com{{ page.url }}">
+	<meta name="twitter:title" content="{{ title }} | Jo Colina">
+	<meta name="twitter:description" content="{{ description }}">
+	<meta name="twitter:image" content="{{ image }}">
+
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="/public/css/main.css">
+    <link href="https://unpkg.com/prism-themes@1.9.0/themes/prism-xonokai.css" rel="stylesheet">
+</head>
+
+<body>
+	<div class="container">
+		<div class="content">
+			{{ content }}
+		</div>
+	</div>
+</body>
+
+</html>

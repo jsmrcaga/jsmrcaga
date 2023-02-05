@@ -1,0 +1,38 @@
+name: Blog
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'blog/**.*'
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - 'blog/**.*'
+
+defaults:
+  run:
+    working-directory: blog
+
+jobs:
+  build_blog:
+    name: 'Build & Publish blog'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Clone'
+        uses: actions/checkout@main
+
+      - name: 'Install Deps'
+        run: npm i
+
+      - name: 'Build'
+        run: npm run build
+
+      # Only run on push
+      - name: 'Publish & Commit'
+        if: ${{ github.event_name == 'push' }}
+        uses: actions/upload-pages-artifact@v1.0.7
+        with:
+          path: blog/_site
