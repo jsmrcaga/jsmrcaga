@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!-- HTML Meta Tags -->
+	<title>Why you should not be using async/await | Jo Colina</title>
+	<meta name="description" content="async/await should help you write cleaner code, but does it?">
+
+	<!-- Facebook Meta Tags -->
+	<meta property="og:url" content="https://blog.jocolina.com/posts/2023-01-01/async-await/">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Why you should not be using async/await | Jo Colina">
+	<meta property="og:description" content="async/await should help you write cleaner code, but does it?">
+	<meta property="og:image" content="">
+
+	<!-- Twitter Meta Tags -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta property="twitter:domain" content="jocolina.com">
+	<meta property="twitter:url" content="https://blog.jocolina.com/posts/2023-01-01/async-await/">
+	<meta name="twitter:title" content="Why you should not be using async/await | Jo Colina">
+	<meta name="twitter:description" content="async/await should help you write cleaner code, but does it?">
+	<meta name="twitter:image" content="">
+
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="/public/css/main.css">
+    <link href="https://unpkg.com/prism-themes@1.9.0/themes/prism-xonokai.css" rel="stylesheet">
+</head>
+
+<body>
+	<div class="container">
+		<div class="content">
+			<h1>Why you should not be using async/await</h1>
+<p>Yet another rant against <code>JavaScript</code>'s new stuff.</p>
+<p>I have been a JavaScript developer for almost 15 years, and I have led engineering teams on both
+front-end and back-end projects for a little over 3 years. During this time I made some decisions
+on my code that were at first only dependent on what I wanted, then dependent on what was best
+for my peers and finally what was best for the developers I was leading and those to come after.</p>
+<p><code>async/await</code> has been one of those topics where every developer wants to migrate to the new syntax, and has many great arguments,
+but I was not convinced that the shift would be beneficial on the long term.</p>
+<h2>The async/await promise &amp; appeal</h2>
+<p>At first glance <code>async/await</code> seems like a great option for JavaScript developers.
+After all, at first we only had callbacks for asynchronous code execution,
+and most devs had a hard time understanding how async worked, and even worse --
+we had <code>callback hell</code>.</p>
+<p>The transition to promises as I remember was amazing. At first I did not like the change
+but the new syntax made it simpler to chain async code without going into callback hell
+(although with some exceptions). And better still, it allowed us to create readable and maintainable
+async functions.</p>
+<p>Using <code>async/await</code> now looks like magic, since we don't need to pass functions as parameters and
+we can juste code line by line, just slap an <code>await</code> and boom, you get your result after the async
+code has finished its task. But why was <code>async/await</code> added to JS since we already migrated to Promises
+and they were so well implanted in the ecosystem?</p>
+<p>According to the <a href="https://github.com/tc39/proposal-async-await"><code>async/await</code> proposal</a> it was first-of-all
+introduced to simplify the language -- to reduce boilerplate code. This allows (in theory) JS developers to
+write code only for what they need it to do, and not whatever that code needs to function.</p>
+<p>Async/await is also meant to simplify the access to JavaScript. Since most developers don't learn async programming
+at first, it is easier to transition to an async language that &quot;writes&quot; like if it was synchronous (ie: executed line by line).</p>
+<h2>What async/await actually solves</h2>
+<h3>The spec example</h3>
+<p>The example given to us by the proposal intro is as follows:</p>
+<ul>
+<li>We have a function that chains different animations on an element</li>
+<li>We are using promises</li>
+<li>Code is hard to understand</li>
+</ul>
+<p>Their result looks like this:</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">chainAnimationsPromise</span><span class="token punctuation">(</span><span class="token parameter">elem<span class="token punctuation">,</span> animations</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token keyword">let</span> ret <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span><br>    <span class="token keyword">let</span> p <span class="token operator">=</span> Promise<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// current promise</span><br><br>    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">const</span> anim <span class="token keyword">of</span> animations<span class="token punctuation">)</span> <span class="token punctuation">{</span><br>        p <span class="token operator">=</span> p<span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">val</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>            ret <span class="token operator">=</span> val<span class="token punctuation">;</span><br>            <span class="token keyword">return</span> <span class="token function">anim</span><span class="token punctuation">(</span>elem<span class="token punctuation">)</span><span class="token punctuation">;</span><br>        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token punctuation">}</span><br><br>    <span class="token keyword">return</span> p<span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>        <span class="token comment">/* ignore and keep going */</span><br>    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>        <span class="token keyword">return</span> ret<span class="token punctuation">;</span><br>    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+<p>Then, migrating to <code>async/await</code></p>
+<ul>
+<li>Boilerplate code is gone</li>
+<li>Code can be read &quot;synchronously&quot;</li>
+</ul>
+<pre class="language-js"><code class="language-js"><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">chainAnimationsAsync</span><span class="token punctuation">(</span><span class="token parameter">elem<span class="token punctuation">,</span> animations</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token keyword">let</span> ret <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span><br>    <span class="token keyword">try</span> <span class="token punctuation">{</span><br>        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">const</span> anim <span class="token keyword">of</span> animations<span class="token punctuation">)</span> <span class="token punctuation">{</span><br>            ret <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">anim</span><span class="token punctuation">(</span>elem<span class="token punctuation">)</span><span class="token punctuation">;</span><br>        <span class="token punctuation">}</span><br>    <span class="token punctuation">}</span> <span class="token keyword">catch</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">/* ignore and keep going */</span> <span class="token punctuation">}</span><br>    <span class="token keyword">return</span> ret<span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+<p>We cannot argue that the code does seem simpler to read!</p>
+<p>But is this an actual use-case? Yes, we often have async-chaining algorithms for different reasons:</p>
+<ul>
+<li>you need to make API requests that depend on each other</li>
+<li>you need to read files recursively</li>
+<li>etc...</li>
+</ul>
+<p>But I believe their example is misleading, since it wants us to believe that using async/await will simplify these use-cases
+by removing boilerplate code and allowing us to write it synchronously just slapping an <code>async</code> and <code>await</code> on it.</p>
+<p>In reality this code could be written in different ways, for example as a recursive function:</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">chainAnimationsRecursive</span><span class="token punctuation">(</span><span class="token parameter">element<span class="token punctuation">,</span> animations<span class="token punctuation">,</span> currentIndex<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> lastResult<span class="token operator">=</span><span class="token keyword">null</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>	<span class="token keyword">const</span> anim <span class="token operator">=</span> animations<span class="token punctuation">[</span>currentIndex<span class="token punctuation">]</span><span class="token punctuation">;</span><br>	<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>anim<span class="token punctuation">)</span> <span class="token punctuation">{</span><br>		<span class="token comment">// We are done and we kept the result like before</span><br>		<span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>lastResult<span class="token punctuation">)</span><span class="token punctuation">;</span><br>	<span class="token punctuation">}</span><br><br>	<span class="token keyword">return</span> <span class="token function">anim</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">result</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span><br>		<span class="token keyword">return</span> <span class="token function">chainAnimationsRecursive</span><span class="token punctuation">(</span>element<span class="token punctuation">,</span> animations<span class="token punctuation">,</span> currentIndex <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> result<span class="token punctuation">)</span><span class="token punctuation">;</span><br>	<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token parameter">e</span> <span class="token operator">=></span> <span class="token punctuation">{</span><br>		<span class="token comment">// ignore and keep going</span><br>		<span class="token keyword">return</span> <span class="token function">chainAnimationsRecursive</span><span class="token punctuation">(</span>element<span class="token punctuation">,</span> animations<span class="token punctuation">,</span> currentIndex <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> lastResult<span class="token punctuation">)</span><span class="token punctuation">;</span><br>	<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+<p>The way I see it, besides the small code duplication this code is way easier to read than the first one, and does not introduce <code>for await</code> looops. It does
+have some boilerplate code, since we are checking the animation index and if it exists, but it does not introduce hard-to-understand movements.</p>
+<h3>Actual problems <code>async/await</code> solves</h3>
+<h4>Error catching</h4>
+<p>Imagine a basic scenario where you need to get a user auth and then some info depending on that user. However
+you can only get that info if the user is a part of the current organization.</p>
+<p>SO far we've got these functions</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">getUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>	<span class="token keyword">return</span> <span class="token function">asyncApiCall</span><span class="token punctuation">(</span><span class="token string">'/user'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><br><br><span class="token keyword">function</span> <span class="token function">getUserInfo</span><span class="token punctuation">(</span><span class="token parameter">user</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>	<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">isPartOfCurrentOrg</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>		<span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">'User is not a part of current org'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>	<span class="token punctuation">}</span><br><br>	<span class="token keyword">return</span> <span class="token function">asyncApiCall</span><span class="token punctuation">(</span><span class="token string">'/user-info'</span><span class="token punctuation">,</span> user<span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+<p>Using these functions with promises would look like this:</p>
+<pre class="language-js"><code class="language-js"><span class="token comment">// we got the user before somehow</span><br><span class="token keyword">function</span> <span class="token function">getUserName</span><span class="token punctuation">(</span><span class="token parameter">user</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>	<span class="token function">getUserInfo</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">userInfo</span> <span class="token operator">=></span> <span class="token punctuation">{</span><br>		<span class="token keyword">return</span> userInfo<span class="token punctuation">.</span>name<span class="token punctuation">;</span><br>	<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token parameter">e</span> <span class="token operator">=></span> <span class="token punctuation">{</span><br>		console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">'Could not get user info'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>	<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+<p>I'm guessing you can see the problem here. If the user is not a part of current org we've got an uncaught exception. We have 2 solutions:</p>
+<ul>
+<li>1/ change <code>throw new Error</code> on <code>getUserInfo</code> to <code>return Promise.reject(new Error</code></li>
+<li>2/ add a <code>try/catch</code> on top of our promise chain</li>
+</ul>
+<p>Using async/await allows us to prevent this since the try/catch block on trop will catch the error (because the function was wrapped in <code>async</code>).</p>
+<h4>Variable access</h4>
+<p>Let's imagine now we want to log the user id (<code>user.id</code>) and the user name (<code>userInfo.name</code>) somewhere. Using promises this can become difficult if we are chaining them:</p>
+<pre class="language-js"><code class="language-js"><span class="token function">getUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">user</span> <span class="token operator">=></span> <span class="token punctuation">{</span><br>	<span class="token keyword">return</span> <span class="token function">getUserInfo</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">userInfo</span> <span class="token operator">=></span> <span class="token punctuation">{</span><br>	<span class="token comment">// How do we get user.id ??</span><br>	console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>userInfo<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>You can imagine the solutions:</p>
+<ul>
+<li>the first <code>then</code> can return a <code>Promise.all</code> including the user</li>
+<li>we can add a <code>user</code> variable on top of the first call to affect the user result and have it ready later</li>
+<li>we can split this in two functions creating a closure with user once we get userInfo</li>
+</ul>
+<p>Using <code>async/await</code> this becomes trivial</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> user <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">getUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token keyword">const</span> userInfo <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">getUserInfo</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span><br>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>user<span class="token punctuation">.</span>id<span class="token punctuation">,</span> userInfo<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h2>When <code>async/await</code> goes wrong</h2>
+<p>The biggest problem with this new syntax is that junior developers slap it everywhere,
+not sure if it is needed or not (couple that with TypeScript and VSCode and you've got async/await carnival).</p>
+<p>In my experience <code>async/await</code> prevents junior developers from properly learning how asynchronous code actually works and executes, and
+most importantly, how to optimize it.</p>
+<p>Methods like <code>Promise.all</code> and its siblings are completely forgotten and you end up with unoptimized code and sometimes useless syntax.</p>
+<h3>Chaining <code>async/await</code>s and forgotten promises</h3>
+<p>I cannot tell you how many times I've seen stuff like this in existing code:</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> obj1 <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">getObj1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token keyword">const</span> obj2 <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">getObj2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token keyword">const</span> obj3 <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">getObj3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br><span class="token function">doSomething</span><span class="token punctuation">(</span>obj1<span class="token punctuation">,</span> obj2<span class="token punctuation">,</span> obj3<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>This code is unoptimized because the developer took the easy route of just slapping <code>await</code>, <em>because it writes/reads like synchronous code</em> and thus
+seems right, especially if you're not familiar with async code. This snippet will indeed behave like synchronous code, getting one object after the other
+while none of them are interdependent. I can imagine you already see the small optimization using <code>Promise.all</code>.</p>
+<p><code>Promise.race</code> and <code>Promise.any</code> are also often self-implemented with bogus and hard to read code because the entire <code>Promise</code> family is unkown to junior developers.</p>
+<h3>Useless/forgotten <code>async/await</code></h3>
+<p>I've also seen existing code and reviewed new code with what I call &quot;forgotten&quot; <code>async/await</code>s. In reality I cannot say
+if they have been forgotten or freely slapped, but I prefer to tell myself that they have been forgotten.</p>
+<p>This creates code that looks like this:</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">soSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>	<span class="token keyword">await</span> <span class="token function">somethingAsync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+<p>or:</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">soSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>	<span class="token keyword">return</span> <span class="token keyword">await</span> <span class="token function">somethingAsync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+<p>In the first snippet we are awaiting some result &quot;for nothing&quot;.I admit there are some cases where you <em>might</em> want to await for something
+without using a result, but they are rare since they mean you need to wait but you don't care if the result is OK or if the code threw an error.</p>
+<p>In most cases this just means that a developer decided that since the code was somehow asynchronous an <code>async/await</code> was necessary, or even worse
+their IDE/text editor (probably VSCode + TS) warned them that this code is async so they added this to remove said warning (don't get me started on junior devs + TS).</p>
+<p>The second snippet is just a small overzealous usage of await, since it is not necessary because the <code>somethingAsync</code> function is already returns a Promise, so there is no
+need to wrap everything in an <code>async/await</code>. Even if we had <code>await</code>ed something before there would be no need to slap <code>await</code> after the <code>return</code> statement. There is even an
+<a href="https://eslint.org/docs/latest/rules/no-return-await#rule-details">ESLint rule</a> against this.</p>
+<h3>await loops</h3>
+<p>Remember our first example?
+As it happens, since most junior developers haven't yet gotten the chance to fully grasp asynchronous code, it seems natural to use <code>await</code> in a for loop.</p>
+<p>This creates a habit and most often than not becomes the same problem than with await chaining. Many promises that could be done in parallel become sequencial
+breaking the possible optimizations. Again, there is an <a href="https://eslint.org/docs/latest/rules/no-await-in-loop#examples">ESLint Rule</a> made explicitly for this purpose.</p>
+<p>This can also create a misunderstanding, making it so the habit of using await creeps its way into mapping and iteration functions (that in turn do not <em>actually await</em>).</p>
+<h3>await.then</h3>
+<p>I don't know how to explain this one, but I have seen it with my own eyes:</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">myAsyncFunc</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>	<span class="token keyword">return</span> <span class="token keyword">await</span> <span class="token function">someAysncThing</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">result</span> <span class="token operator">=></span> <span class="token punctuation">{</span><br>		<span class="token function">doSomethingWithTheResult</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span><br>	<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+<p>So yeah, stick to one or the other please.</p>
+<hr>
+<p>As a team leader or CTO, you can probably understand that this means slower code since it means more debugging before opening Pull Requests, and more code reviews since
+the solutions will probably default to &quot;hacking over async/await&quot; instead of falling back to promises. Moreover it probably also means more difficulties for your developers to
+understand what's wrong with their code.</p>
+<p>I often use <code>async/await</code>s in my unit tests, since often I need to use previous async results for assertations and readability, but in my main codebases I only default to Promises.</p>
+
+		</div>
+	</div>
+</body>
+
+</html>

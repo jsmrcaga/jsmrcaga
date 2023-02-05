@@ -1,0 +1,67 @@
+:root {
+	--bg-drop: #171717;
+	--bg-content: #101010;
+
+	--text-main: #CCC;
+	--text-title: #DDD;
+}
+
+html, body {
+	margin: 0;
+	font-size: 18px;
+	line-height: 1.7em;
+	font-family: -apple-system, sans-serif;
+}
+
+body {
+	background-color: var(--bg-drop);
+	color: var(--text-main);
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+}
+
+.content {
+	padding: 50px 65px;
+	min-width: 750px;
+	max-width: 750px;
+	/* background-color: var(--bg-content); */
+}
+
+h1, h2, h3, h4, h5, h6 {
+	position: relative;
+	color: var(--text-title);
+}
+
+:is(h1, h2, h3, h4, h5, h6):not(:first-child) {
+	margin-top: 2em;
+}
+
+h1:before {
+	content: "/";
+	position: absolute;
+	left: -15px;
+	color: #656565;
+}
+
+h2:before, h3:before {
+	content: "#";
+	position: absolute;
+	left: -20px;
+	color: #656565;
+}
+
+:is(h1, h2, h3, h4, h5, h6) code {
+	font-size: 1em;
+}
+
+code {
+	font-size: 16px;
+}
+
+pre code {
+	padding: 20px 30px;
+	/* background-color: var(--bg-content); */
+}
