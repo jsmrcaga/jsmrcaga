@@ -266,7 +266,9 @@ async function myAsyncFunc() {
 
 So yeah, stick to one or the other please.
 
+
 ---
+
 
 As a team leader or CTO, you can probably understand that this means slower code since it means more debugging before opening Pull Requests, and more code reviews since
 the solutions will probably default to "hacking over async/await" instead of falling back to promises. Moreover it probably also means more difficulties for your developers to
