@@ -16,5 +16,10 @@ module jocolina_com {
     type = "A"
     value = "127.0.0.1"
     proxied = false
+  },{
+    name = "blog"
+    type = "CNAME"
+    value = "jsmrcaga.github.io"
+    proxied = false
   }]
 }
