@@ -1,0 +1,24 @@
+.article {
+	font-size: 20px;
+}
+
+.tag {
+	padding: 7px 10px;
+	text-transform: uppercase;
+	font-size: 13px;
+	font-weight: bold;
+
+	border: 1px solid grey;
+	border-radius: 5px;
+	transition: color 0.2s ease-in-out;
+}
+
+.tag:hover {
+	cursor: pointer;
+	color: gray;
+}
+
+.tag:before {
+	content: '#';
+	margin-right: 5px;
+}

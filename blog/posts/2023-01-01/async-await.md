@@ -1,13 +1,11 @@
 ---
-layout: main
+layout: article
 title: Why you should not be using async/await
 description: async/await should help you write cleaner code, but does it?
-tags: ['post', 'tc39', 'javascript', 'node.js']
+tags: ['tc39', 'javascript', 'node.js']
 date: 2023-02-03
 image: 
 ---
-
-# {{ title }}
 
 Yet another rant against `JavaScript`'s new stuff.
 
@@ -102,7 +100,7 @@ by removing boilerplate code and allowing us to write it synchronously just slap
 
 In reality this code could be written in different ways, for example as a recursive function:
 ```js
-function chainAnimationsRecursive(element, animations, currentIndex=0, lastResult=null) {
+function chainAnimations(element, animations, currentIndex=0, lastResult=null) {
 	const anim = animations[currentIndex];
 	if(!anim) {
 		// We are done and we kept the result like before
@@ -110,10 +108,10 @@ function chainAnimationsRecursive(element, animations, currentIndex=0, lastResul
 	}
 
 	return anim(element).then((result) => {
-		return chainAnimationsRecursive(element, animations, currentIndex + 1, result);
+		return chainAnimations(element, animations, currentIndex + 1, result);
 	}).catch(e => {
 		// ignore and keep going
-		return chainAnimationsRecursive(element, animations, currentIndex + 1, lastResult);
+		return chainAnimations(element, animations, currentIndex + 1, lastResult);
 	});
 }
 ```
@@ -128,7 +126,7 @@ have some boilerplate code, since we are checking the animation index and if it 
 Imagine a basic scenario where you need to get a user auth and then some info depending on that user. However
 you can only get that info if the user is a part of the current organization.
 
-SO far we've got these functions
+So far we've got these functions
 ```js
 function getUser() {
 	return asyncApiCall('/user');
@@ -147,7 +145,7 @@ Using these functions with promises would look like this:
 ```js
 // we got the user before somehow
 function getUserName(user) {
-	getUserInfo(user).then(userInfo => {
+	return getUserInfo(user).then(userInfo => {
 		return userInfo.name;
 	}).catch(e => {
 		console.error('Could not get user info');

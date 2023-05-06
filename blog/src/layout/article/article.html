@@ -1,0 +1,23 @@
+---
+layout: main
+---
+
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="/public/css/article.css">
+
+<article class="article">
+	<h1>{{ title }}</h1>
+
+
+	{% if tags.length %}
+	<div class="tags">
+		{% for tag in tags %}
+			<span class="tag">{{ tag }}</span>
+		{% endfor %}
+	</div>
+	{% endif %}
+
+	<div class="article-content">
+		{{ content }}
+	</div>
+</article>
