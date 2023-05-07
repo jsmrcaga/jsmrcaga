@@ -1,5 +1,9 @@
 module repo {
-  source = "git@github.com:jsmrcaga/terraform-modules//github-repo?ref=v0.1.0"
+  source = "git@github.com:jsmrcaga/terraform-modules//github-repo?ref=v0.1.3"
+
+  github = {
+    token = var.github.token
+  }
 
   name = "jsmrcaga"
   description = "My personal repository, home to strange stuff"
@@ -18,9 +22,5 @@ module repo {
   pages = {
     cname = "blog.jocolina.com"
     github_actions = true
-  }
-
-  github = {
-    token = var.github.token
   }
 }

@@ -21,5 +21,10 @@ module jocolina_com {
     type = "CNAME"
     value = "jsmrcaga.github.io"
     proxied = false
+  }, {
+    value = var.ssh_pub_key
+    type = "TXT"
+    proxied = false
+    name = "jocolina.com"
   }]
 }

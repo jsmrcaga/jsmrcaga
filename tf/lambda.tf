@@ -10,7 +10,11 @@ data archive_file "dummy_zip" {
 }
 
 module svg_lambda {
-	source = "git@github.com:jsmrcaga/terraform-modules//lambda-api?ref=v0.0.3"
+  aws = {
+    shared_credentials_file = "./aws.cred"
+  }
+
+	source = "git@github.com:jsmrcaga/terraform-modules//lambda-api?ref=v0.1.5"
 
   function_name = "github-readme-v2"
 
@@ -24,16 +28,6 @@ module svg_lambda {
     "SPOTIFY_CLIENT_SECRET" = var.spotify.client_secret
     "SPOTIFY_REFRESH_TOKEN" = var.spotify.refresh_token
   }
-}
 
-resource aws_apigatewayv2_route "route_spotify" {
-    route_key = "GET /spotify.svg"
-    api_id = module.svg_lambda.api_gateway_api.id
-    target = "integrations/${module.svg_lambda.api_gateway_api_integration.id}"
-}
-
-resource aws_apigatewayv2_route "route_spotify_redirector" {
-    route_key = "GET /spotify"
-    api_id = module.svg_lambda.api_gateway_api.id
-    target = "integrations/${module.svg_lambda.api_gateway_api_integration.id}"
+  include_lambda_logs = true
 }

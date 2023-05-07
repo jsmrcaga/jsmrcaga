@@ -11,8 +11,7 @@ const respond = (data, status=200) => {
 		body: Buffer.from(data).toString('base64'),
 		isBase64Encoded: true
 	};
-}
-
+};
 
 const handler = (event, context, callback) => {
 	Spotify.refreshToken().then(() => {
