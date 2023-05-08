@@ -17,6 +17,9 @@ resource "vercel_project" "landing" {
   
   environment = []
 
+  # We don't need a root directory because we are manually deploing via github actions
+  # root_directory = "landing"
+
   git_repository = null
 }
 

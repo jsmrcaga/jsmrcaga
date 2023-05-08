@@ -1,0 +1,80 @@
+name: PR - Build landing
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - 'landing/**.*'
+
+  push:
+    branches:
+      - master
+    paths:
+      - 'landing/**.*'
+
+
+defaults:
+  run:
+    working-directory: landing
+
+
+jobs:
+  build:
+    name: Build landing page
+    runs-on: ubuntu-latest
+
+    if: ${{ github.event_name == 'pull_request' }}
+
+    steps:
+
+      - uses: actions/checkout@master
+
+      # Install vercel after checkout because `working_directory` crashes otherwise
+      - run: npm i -g vercel
+
+      - uses: actions/cache@master
+        id: cache-node-modules
+        with:
+          path: node_modules
+          key: npm-${{ hashFiles('landing/package-lock.json') }}
+
+      - run: npm i
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+
+      - run: |
+          vercel pull --yes --token=${{ secrets.VERCEL_TOKEN }}
+          vercel build --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: 8KfUeVURiVHjnpyiPw0u27sY
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+  deploy:
+    name: Deploy landing frontend
+    runs-on: ubuntu-latest
+
+    if: ${{ github.event_name == 'push' }}
+
+    steps:
+
+      - uses: actions/checkout@master
+
+      # Install vercel after checkout because `working_directory` crashes otherwise
+      - run: npm i -g vercel
+
+      - uses: actions/cache@master
+        id: cache-node-modules
+        with:
+          path: node_modules
+          key: npm-${{ hashFiles('landing/package-lock.json') }}
+
+      - run: npm i
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+
+      - run: |
+          vercel pull --yes --token=${{ secrets.VERCEL_TOKEN }}
+          vercel deploy --prod --token ${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: 8KfUeVURiVHjnpyiPw0u27sY
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
