@@ -28,6 +28,12 @@ variable aws {
   })
 }
 
+variable vercel {
+  type = object({
+    token = string
+  })
+}
+
 variable ssh_pub_key {
   type = string
 }

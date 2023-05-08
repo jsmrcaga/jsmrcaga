@@ -16,6 +16,8 @@ module repo {
     secrets = {
       AWS_ACCESS_KEY_ID = var.aws.key_id
       AWS_SECRET_ACCESS_KEY = var.aws.secret
+      VERCEL_PROJECT_ID = vercel_project.landing.id
+      VERCEL_TOKEN = var.vercel.token
     }
   }
 
