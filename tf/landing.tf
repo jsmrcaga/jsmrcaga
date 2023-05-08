@@ -10,6 +10,18 @@ resource "cloudflare_record" "landing_custom_domain_dns_record" {
   proxied = false
 }
 
+# This used to be a cloudflare pages redirection
+# resource "cloudflare_record" "landing_custom_domain_dns_record" {
+#   # only set domain if needed
+#   zone_id = var.cloudflare.zone_id
+#   # Naive subdomain spliting to get only the xxx part
+#   name = "@"
+#   value = "129.0.2.1" # i'm not sure where this IP comes from
+#   type = "A"
+#   ttl = 3600
+#   proxied = false
+# }
+
 # Create vercel project
 resource "vercel_project" "landing" {
   name = "jocolina"
