@@ -14,6 +14,21 @@ function Li({ children, active, className, ...rest }) {
 	);
 }
 
+function MobileText({ mobile, children }) {
+	return (
+		<span className={Style['responsive-text']}>
+			{
+				mobile && <span className={Style['mobile-text']}>
+					{ mobile }
+				</span>
+			}
+			<span className={Style['desktop-text']}>
+				{children}
+			</span>
+		</span>
+	);
+}
+
 export function Header() {
 	const { location, push } = useRouter();
 
@@ -35,11 +50,10 @@ export function Header() {
 						Projects
 					</Li>
 					<Li
-						active={location === '/xp'}
-						// onClick={() => push('/xp')}
-						className={Style.disabled}
+						active={location === '/experience'}
+						onClick={() => push('/experience')}
 					>
-						Experience
+						<MobileText mobile="XP">Experience</MobileText>
 					</Li>
 					<Li
 						active={location === '/blog'}

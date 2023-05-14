@@ -7,7 +7,9 @@ import {
 	GradientText,
 	Header,
 	Splash,
-	useNavigator
+	useNavigator,
+	Section,
+	WorksBestInChrome
 } from '../../';
 
 import Style from './home.module.css';
@@ -34,6 +36,7 @@ export function Home() {
 	return (
 		<>
 			<Overlay/>
+			<WorksBestInChrome/>
 			<StickySection centered>
 				<Header/>
 				<ScrollAnimate
@@ -86,6 +89,32 @@ export function Home() {
 					</Title>
 				</ScrollAnimate>
 			</StickySection>
+
+			<Section centered>
+				<Title as='h1' className={Style['secondary-title']}>
+					I've led engineering teams @
+					<br/>
+					<GradientText
+						to="#3d3def"
+						from="#ff4646"
+					>
+						<strong><a href="https://hiresweet.com?ref=jocolina.com">HireSweet</a> & <a href="https://weezevent.com?ref=jocolina.com">Weezevent</a></strong>
+					</GradientText>
+				</Title>
+			</Section>
+
+			<Section centered secondary>
+				<Title as='h1' className={Style['secondary-title']}>
+					But I also enjoy working on 
+					<br/>
+					<GradientText
+						to="#3d3def"
+						from="#ff4646"
+					>
+						<strong>personal projects</strong>
+					</GradientText>
+				</Title>
+			</Section>
 		</>
 	);
 }

@@ -5,7 +5,8 @@ import {
 	Header,
 	Content,
 	Title,
-	Splash
+	Splash,
+	WorksBestInChrome
 } from '../../';
 
 import Style from './projects.module.css';
@@ -13,6 +14,7 @@ import Style from './projects.module.css';
 export function Projects() {
 	return (
 		<>
+			<WorksBestInChrome/>
 			<Header/>
 			<Section className={Style.padless}>
 				<Splash/>
@@ -35,7 +37,7 @@ export function Projects() {
 					<IOICard
 						title="control core"
 						href="https://github.com/jsmrcaga/control-core"
-						description="Graph task execution. Created to simplify Playwright-based front-end testing and allow access to Product Teams"
+						description="Programatic graph task execution. Created to simplify Playwright-based front-end testing and allow access to Product Teams but able to run anything (think NodeRed or n8n)"
 						tags={['Testing', 'Product']}
 						image="/projects/control-logo-black.png"
 						brightness={0.3}
@@ -45,7 +47,7 @@ export function Projects() {
 						title="V1"
 						transparent
 						size={3}
-						description="A simple (and opinionated) deployment management system"
+						description="A simple (and opinionated) deployment management system."
 						tags={['Utils', 'WIP']}
 						image="/images/splash.jpg"
 					/>
@@ -76,6 +78,30 @@ export function Projects() {
 						image="/projects/terraform.png"
 						blur
 						brightness={0.3}
+					/>
+					<IOICard
+						title="Accounts"
+						description="Our own Auth management service. Supports passkeys by default"
+						tags={['Passkeys', 'Passwordless']}
+						image="/projects/accounts.png"
+						blur
+						size={3}
+					/>
+					<IOICard
+						title="pswd.app"
+						description="A blockchain (Blockstack/Stacks) based password manager (deprecated)"
+						tags={['Passwords']}
+						transparent
+						href="https://www.producthunt.com/products/pswd-app#pswd-app"
+					/>
+					<IOICard
+						title="no.pswd.app"
+						description="An authorization service based solely on WebAuthN. The cool kids call them Passkeys now"
+						tags={['Passkeys', 'Passwordless']}
+						image="/projects/no.pswd.png"
+						size={2}
+						blur
+						brightness={0.2}
 					/>
 				</IOICardGroup>
 			</Section>

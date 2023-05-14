@@ -32,3 +32,20 @@
 	fill: var(--background-secondary);
 	opacity: 0.3;
 }
+
+
+.chrome {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	padding: 10px 20px;
+	background-color: rgba(255, 255, 255, 0.2);
+	border-radius: 50px;
+	z-index: 10;
+	display: none;
+	font-size: 1.2rem;
+}
+
+.chrome.is-safari {
+	display: unset;
+}

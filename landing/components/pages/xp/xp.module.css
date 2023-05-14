@@ -1,0 +1,59 @@
+.grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(400px, 1fr));
+	gap: 100px;
+}
+
+.company-title {
+	font-size: 5rem;
+}
+
+.job-title {
+	font-size: 3rem;
+	font-family: Germania One, cursive;
+}
+
+.xp-item {
+	text-align: left;
+}
+
+.xp-item > span {
+	display: block;
+}
+
+.xp-item span.dates {
+	opacity: 0.6;
+	font-size: 1.2rem;
+}
+
+.xp-item p {
+	margin-top: 4rem;
+	font-size: 1.1rem;
+	opacity: 0.8;
+}
+
+
+@media only screen and (max-width: 550px) {
+	.mobile-text {
+		margin-bottom: 1rem;
+		font-size: 12vw;
+	}
+
+	.grid {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+
+	.reverse {
+		flex-direction: column-reverse;
+	}
+
+	.xp-item p {
+		margin-top: 1rem;
+	}
+
+	.job-title {
+		font-size: 2rem;
+	}
+}
