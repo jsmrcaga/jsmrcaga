@@ -13,7 +13,8 @@ import {
 
 import {
 	Home,
-	Projects
+	Projects,
+	Experience
 } from '../components/pages'
 
 import Style from '../styles/index.module.css';
@@ -50,8 +51,8 @@ function MainScroller() {
 				<Home/>
 			</Route>
 
-			<Route path="/xp">
-
+			<Route path="/experience">
+				<Experience/>
 			</Route>
 
 			<Route path="/projects">

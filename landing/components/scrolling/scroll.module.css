@@ -41,10 +41,17 @@
 	/* Since abs() does not work, we can get the max of i * -1 and i*/
 	--inv: calc(var(--animation-step) - 1);
 	--animation-step-inverted: max(calc(var(--inv) * -1), var(--inv));
+
+}
+
+.mobile-ready {
+	/* For some reason this breaks on mobile if we don't add max width*/
+	max-width: 100%;
 }
 
 /* This class allows us to combine multiple transforms from different classes */
 .transformable {
+	/* transition: transform 0.01s ease-in-out; */
 	transform:
 		var(--matrix, )
 		var(--matrix3d, )

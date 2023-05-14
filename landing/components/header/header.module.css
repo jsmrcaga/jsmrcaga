@@ -37,6 +37,23 @@
 	align-items: center;
 }
 
+@media only screen and (max-width:550px) {
+	.header {
+		padding: 0;
+	}
+
+	.header ul {
+		margin-left: unset;
+		padding-inline-start: 0;
+		margin-inline: auto;
+	}
+
+	.header > img {
+		display: none;
+	}
+}
+
+
 .header ul li {
 	text-decoration: none;
 	list-style: none;
@@ -76,4 +93,23 @@
 
 .header ul li.disabled {
 	cursor: no-drop;
+}
+
+
+.responsive-text span.mobile-text {
+	display: none;
+}
+
+.responsive-text span.desktop-text {
+	display: unset;
+}
+
+@media only screen and (max-width: 550px) {
+	.responsive-text span.mobile-text {
+		display: unset;
+	}
+
+	.responsive-text span.desktop-text {
+		display: none;
+	}
 }

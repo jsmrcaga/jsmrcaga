@@ -22,7 +22,7 @@
 /* Sticky */
 .sticky {
 	width: 100%;
-	height: var(--height);
+	min-height: var(--height);
 	position: relative;
 }
 
