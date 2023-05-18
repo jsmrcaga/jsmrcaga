@@ -17,11 +17,15 @@ import {
 	Experience
 } from '../components/pages'
 
+import { useConsoleMessage } from '../hooks/console';
+
 import Style from '../styles/index.module.css';
 
 
 function MainScroller() {
 	const { location, push } = useRouter();
+
+	useConsoleMessage();
 
 	const throttle = React.useRef(null);
 	const throttledPush = React.useCallback((...args) => {
