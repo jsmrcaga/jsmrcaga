@@ -75,6 +75,10 @@ if I did that, if you have any idea how please contact me!
 		};
 
 		const xp = [{
+			name: '🧑🏼‍💻 Management / Lead',
+			experience: '~3yrs',
+			comments: 'I\'ve lead teams @ Weezevent and HireSweet, both on the technical side (SDLC, Testing, CI/CD, deployments, tech vigilance, SOC2...) and on the human side (1 on 1s, carreer steering, tasks & project priorities, inter-team collaboration...)'
+		}, {
 			name: 'Node.js',
 			experience: '~10yrs',
 			comments: 'Have been using Node for various backend apps and scripting. Most of my projets are node-based.'
@@ -114,7 +118,7 @@ if I did that, if you have any idea how please contact me!
 	}
 
 	get techSkills() {
-		return this.website_info;
+		return this.tech_skills;
 		return () => {};
 	}
 
