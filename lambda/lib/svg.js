@@ -8,10 +8,11 @@ const nothingPlayingFile = fs.readFile(path.join(__dirname, './template/nothinpl
 function render_svg({ image, artist, name, url }) {
 	return templateFile.then(svg => {
 		let templated = svg.toString('utf8').trim();
-	  for(const [k, v] of Object.entries({ image, artist, name, url })) {
-	    templated = templated.replace(new RegExp(`\{${k}\}`, 'i'), v);
-	  }
-	  return templated;
+		for(const [k, v] of Object.entries({ image, artist, name, url })) {
+			templated = templated.replace(new RegExp(`\{${k}\}`, 'i'), v);
+		}
+
+		return templated;
 	});
 }
 

@@ -22,12 +22,13 @@ const handler = (event, context, callback) => {
 				artist: '',
 				name: 'Nothing playing...',
 				image: null,
-				url: '#'
+				url: null
 			}
 		}
 
 		// Used to redirect to spotify from a link
 		if(event.rawPath === '/spotify') {
+			const url = track.url || 'https://jocolina.com';
 			// Redirect to actual track
 			return callback(null, {
 				statusCode: 302,
