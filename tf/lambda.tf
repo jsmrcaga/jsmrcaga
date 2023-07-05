@@ -18,7 +18,7 @@ module svg_lambda {
 
   function_name = "github-readme-v2"
 
-  lambda_runtime = "nodejs14.x"
+  lambda_runtime = "nodejs18.x"
   lambda_handler = "index.handler"
 
   lambda_filename = data.archive_file.dummy_zip.output_path
