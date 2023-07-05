@@ -4,11 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "try": "source .env && node test.js"
   },
   "author": "Jo Colina <jo@jocolina.com>",
-  "license": "MIT",
-  "dependencies": {
-    "fishingrod": "^4.1.0"
-  }
+  "license": "MIT"
 }

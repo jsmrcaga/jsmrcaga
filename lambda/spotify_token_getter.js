@@ -1,4 +1,3 @@
-const fishingrod = require('fishingrod');
 const app = require('express')();
 
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
@@ -13,21 +12,18 @@ app.get('/', (req, res) => {
 
 	const auth = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64');
 
-	fishingrod.fish({
-		debug: true,
+	fetch('https://accounts.spotify.com/api/token', {
 		method: 'POST',
-		host: 'accounts.spotify.com',
-		path: '/api/token',
 		headers: {
 			Authorization: `Basic ${auth}`,
 			'Content-Type': 'application/x-www-form-urlencoded'
 		},
-		data: {
+		body: new URLSearchParams({
 			grant_type: 'authorization_code',
 			code: req.query.code,
 			redirect_uri: `http://localhost:${PORT}`
-		}
-	}).then(({ response }) => {
+		}).toString()
+	}).then((response) => response.json()).then(response => {
 		console.log('RESPONSE', response);
 		res.end(JSON.stringify(response));
 	});
