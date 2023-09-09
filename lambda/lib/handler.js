@@ -33,7 +33,7 @@ const handler = (event, context, callback) => {
 			return callback(null, {
 				statusCode: 302,
 				headers: {
-					Location: track.url,
+					Location: url,
 				},
 				body: null,
 			});
