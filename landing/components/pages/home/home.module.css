@@ -3,8 +3,23 @@
 	font-size: 6.5rem;
 }
 
+.mobile-ready {
+	display: flex;
+	justify-content: center;
+}
+
+.mobile-only {
+	display: none;
+}
+
 @media only screen and (max-width: 550px) {
 	.secondary-title {
-		font-size: 4rem;
+		font-size: 3.3rem;
+		max-width: 100%;
+		text-align: center;
+	}
+
+	.mobile-only {
+		display: unset;
 	}
 }

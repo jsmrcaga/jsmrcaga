@@ -60,6 +60,18 @@ export function Projects() {
 						brightness={0.2}
 						blur
 					/>
+
+					<IOICard
+						title="assembly-line"
+						href="https://github.com/jsmrcaga/assembly-line"
+						description="Celery-inspired async task runner for Nodejs"
+						tags={['Tasks', 'async']}
+						transparent
+						brightness={0.3}
+						blur
+						size={2}
+					/>
+
 					<IOICard
 						title="Executor"
 						size={2}
