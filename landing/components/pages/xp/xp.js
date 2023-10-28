@@ -45,6 +45,7 @@ export function Experience() {
 		<>
 			<Overlay/>
 			<WorksBestInChrome/>
+
 			<StickySection centered>
 				<Header/>
 				<Splash/>
@@ -54,10 +55,45 @@ export function Experience() {
 					scrollStart={0}
 					scrollEnd={1200}
 				>
-					<Grid className={Style['reverse']}>
+					<Grid>
+						<ExperienceItem
+							title="Engineering Manager"
+							dates="2023 - present"
+						>
+							Currently leading a team of 4 developers on the Accounting team. Our mission is to facilitate accounting tasks for both Shine users & their accountants.
+						</ExperienceItem>
+
+						<Title as='h1' className={classnames(Style['company-title'], Style['mobile-text'])}>
+							<GradientText
+								to="#3d3def"
+								from="#ff4646"
+							>
+								<strong>Shine</strong>
+							</GradientText>
+						</Title>
+					</Grid>
+				</ScrollAnimate>
+			</StickySection>
+
+			<StickySection  height="100vh" centered secondary>
+
+				<ScrollAnimate
+					animations={['scale-down', 'slide-up', 'appear']}
+					magic
+				>
+					<Grid>
+						<Title as='h1' className={classnames(Style['company-title'], Style['mobile-text'])}>
+							<GradientText
+								to="#3d3def"
+								from="#ff4646"
+							>
+								<strong>HireSweet</strong>
+							</GradientText>
+						</Title>
+
 						<ExperienceItem
 							title="Lead Developer / Tech lead"
-							dates="2022 - present"
+							dates="2022 - 2023"
 						>
 							Led a team of 2 to 4 developers with the objective to set good coding practices and streamline the development and product pipelines.
 							<br/>
@@ -72,19 +108,12 @@ export function Experience() {
 							Owned technical aspects of the SOC2 certification 🔒.
 						</ExperienceItem>
 
-						<Title as='h1' className={classnames(Style['company-title'], Style['mobile-text'])}>
-							<GradientText
-								to="#3d3def"
-								from="#ff4646"
-							>
-								<strong>HireSweet</strong>
-							</GradientText>
-						</Title>
 					</Grid>
 				</ScrollAnimate>
 			</StickySection>
 
-			<StickySection height="100vh" centered secondary>
+			<StickySection height="100vh" centered>
+				<Splash/>
 				<ScrollAnimate
 					animations={['slide-down', 'scale-down', 'appear']}
 					// scrollStart={2000}
@@ -92,15 +121,6 @@ export function Experience() {
 					magic
 				>
 					<Grid>
-						<Title as='h1' className={classnames(Style['company-title'], Style['mobile-text'])}>
-							<GradientText
-								to="#3d3def"
-								from="#ff4646"
-							>
-								<strong>Weezevent</strong>
-							</GradientText>
-						</Title>
-
 						<ExperienceItem
 							title="Lead Developer / Tech lead"
 							dates="2018 - 2022"
@@ -114,12 +134,21 @@ export function Experience() {
 							I learnt a lot from this experience both in the technical and management aspects, being led by both the current and previous CTOs, and
 							by learning on the spot with the team. We managed to build very nice success stories, both on the devs' carreers and the product we shipped 🎉.
 						</ExperienceItem>
+
+						<Title as='h1' className={classnames(Style['company-title'], Style['mobile-text'])}>
+							<GradientText
+								to="#3d3def"
+								from="#ff4646"
+							>
+								<strong>Weezevent</strong>
+							</GradientText>
+						</Title>
+
 					</Grid>
 				</ScrollAnimate>
 			</StickySection>
 
-			<StickySection height="100vh" centered>
-				<Splash/>
+			<StickySection height="100vh" centered secondary>
 
 				<ScrollAnimate
 					animations={['scale-down', 'slide-down', 'appear']}
@@ -150,7 +179,8 @@ export function Experience() {
 				</ScrollAnimate>
 			</StickySection>
 
-			<StickySection height="100vh" secondary centered>
+			<StickySection height="100vh" centered>
+				<Splash/>
 				<ScrollAnimate
 					animations={['scale-down', 'appear']}
 					// scrollStart={4200}

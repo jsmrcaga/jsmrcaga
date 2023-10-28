@@ -14,6 +14,9 @@ import {
 
 import Style from './home.module.css';
 
+function MobileOnly({ children }) {
+	return <span className={Style["mobile-only"]}>{children}</span>
+}
 
 export function Home() {
 	const { scrollerRef } = useNavigator();
@@ -76,15 +79,16 @@ export function Home() {
 					animations={['appear', 'slide-down']}
 					scrollStart={2200}
 					scrollEnd={isMobile ? 2500 : 3000}
+					className={Style["mobile-ready"]}
 				>
 					<Title as='h1' className={Style['secondary-title']}>
-						I'm a
+						I'm an
 						<br/>
 						<GradientText
 							to="#3d3def"
 							from="#ff4646"
 						>
-							<strong>fullstack tech lead</strong>
+							<strong>engineering manager</strong>
 						</GradientText>
 					</Title>
 				</ScrollAnimate>
@@ -98,7 +102,13 @@ export function Home() {
 						to="#3d3def"
 						from="#ff4646"
 					>
-						<strong><a href="https://hiresweet.com?ref=jocolina.com">HireSweet</a> & <a href="https://weezevent.com?ref=jocolina.com">Weezevent</a></strong>
+						<strong>
+							<a href="https://shine.fr?ref=jocolina.com">Shine</a>
+							,&nbsp;<MobileOnly><br/></MobileOnly>
+							<a href="https://hiresweet.com?ref=jocolina.com">HireSweet</a>
+							&nbsp;&&nbsp;<MobileOnly><br/></MobileOnly>
+							<a href="https://weezevent.com?ref=jocolina.com">Weezevent</a>
+						</strong>
 					</GradientText>
 				</Title>
 			</Section>
