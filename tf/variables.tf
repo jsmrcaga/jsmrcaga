@@ -37,3 +37,10 @@ variable vercel {
 variable ssh_pub_key {
   type = string
 }
+
+variable grafana {
+  type = object({
+    cloud_id = string
+    account_id = string
+  })
+}
