@@ -1,4 +1,11 @@
 resource kubernetes_stateful_set_v1 prometheus {
+  timeouts {
+    create = "30s"
+    delete = "30s"
+    update = "30s"
+    read = "5s"
+  }
+
   metadata {
     name = "prometheus"
     namespace = local.namespace
