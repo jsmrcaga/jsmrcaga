@@ -1,7 +1,7 @@
 resource kubernetes_service_v1 grafana_service {
   metadata {
     name = "grafana"
-    namespace = kubernetes_namespace_v1.grafana.metadata[0].name
+    namespace = local.namespace
   }
 
 
@@ -23,7 +23,7 @@ resource kubernetes_service_v1 grafana_service {
 resource kubernetes_ingress_v1 grafana_ingress {
   metadata {
     name = "grafana"
-    namespace = kubernetes_namespace_v1.grafana.metadata[0].name
+    namespace = local.namespace
 
     annotations = {
       "kubernetes.io/ingress.class" = "traefik"
