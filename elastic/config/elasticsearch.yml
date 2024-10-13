@@ -1,0 +1,6 @@
+path:
+  data: /var/data/elasticsearch
+  logs: /var/log/elasticsearch
+
+discovery:
+  type: multi-node
