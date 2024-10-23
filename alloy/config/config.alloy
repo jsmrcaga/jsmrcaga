@@ -1,0 +1,30 @@
+logging {
+  level  = "debug"
+  format = "logfmt"
+}
+
+otelcol.receiver.otlp "otel_collector" {
+	http {
+		endpoint = "0.0.0.0:4318"
+	}
+
+	output {
+		metrics = [otelcol.processor.batch.metrics.input]
+	}
+}
+
+otelcol.processor.batch "metrics" {
+  output {
+    metrics = [otelcol.exporter.prometheus.prometheus.input]
+  }
+}
+
+otelcol.exporter.prometheus "prometheus" {
+	forward_to = [prometheus.remote_write.prometheus.receiver]
+}
+
+prometheus.remote_write "prometheus" {
+	endpoint {
+		url = sys.env("PROMETHEUS_WRITE_ENDPOINT")
+	}
+}
