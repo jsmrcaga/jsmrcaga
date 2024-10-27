@@ -6,4 +6,6 @@ module pi_hole {
 
 module plex {
   source = "./plex"
+
+  plex_claim_token = var.plex.claim_token
 }
