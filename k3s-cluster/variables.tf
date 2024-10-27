@@ -7,3 +7,9 @@ variable pihole {
 		password = string	
 	})
 }
+
+variable plex {
+	type = object({
+		claim_token = string
+	})
+}
