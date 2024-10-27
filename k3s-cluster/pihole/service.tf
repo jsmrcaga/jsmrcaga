@@ -25,7 +25,7 @@ resource kubernetes_service_v1 pi_hole {
 
     port {
       name = "http"
-      port = local.lighttpd_port
+      port = local.ports["http"]
       target_port = local.ports["http"]
       protocol = "TCP"
     }
