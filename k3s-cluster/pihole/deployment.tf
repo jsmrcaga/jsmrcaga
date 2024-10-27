@@ -39,7 +39,7 @@ resource kubernetes_deployment_v1 pi_hole {
         }
 
         # https://www.frakkingsweet.com/running-dhcp-in-kubernetes/
-        # host_network = true
+        host_network = true
         dns_policy = "ClusterFirst"
 
         volume {
@@ -110,6 +110,11 @@ resource kubernetes_deployment_v1 pi_hole {
           env {
             name = "DHCP_ROUTER"
             value = "192.168.1.1"
+          }
+
+          env {
+            name = "DNSMASQ_LISTENING"
+            value = "all"
           }
 
           port {
