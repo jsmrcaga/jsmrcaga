@@ -38,6 +38,8 @@ resource kubernetes_deployment_v1 pi_hole {
           ethernet-only = "true"
         }
 
+        # https://www.frakkingsweet.com/running-dhcp-in-kubernetes/
+        # host_network = true
         dns_policy = "ClusterFirst"
 
         volume {
@@ -46,7 +48,6 @@ resource kubernetes_deployment_v1 pi_hole {
             claim_name = kubernetes_persistent_volume_claim_v1.pi_hole.metadata[0].name
           }
         }
-
 
         container {
           name = local.name
@@ -72,8 +73,12 @@ resource kubernetes_deployment_v1 pi_hole {
 
           env {
             name = "WEBPASSWORD"
-            # todo: change this with random_password
             value = var.pihole_password
+          }
+
+          env {
+            name = "WEB_PORT"
+            value = 8088
           }
 
           env {
@@ -108,23 +113,33 @@ resource kubernetes_deployment_v1 pi_hole {
           }
 
           port {
-            name = "dns"
+            name = "dns-tcp"
             container_port = local.ports["dns"]
+            protocol = "TCP"
+          }
+
+          port {
+            name = "dns-udp"
+            container_port = local.ports["dns"]
+            protocol = "UDP"
           }
 
           port {
             name = "dhcp-1"
             container_port = local.ports["dhcp_1"]
+            protocol = "UDP"
           }
 
           port {
             name = "dhcp-2"
             container_port = local.ports["dhcp_2"]
+            protocol = "UDP"
           }
 
           port {
-            name = "web-80"
+            name = "web-8088"
             container_port = local.ports["http"]
+            protocol = "TCP"
           }
         }
       }
