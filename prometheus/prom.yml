@@ -1,0 +1,29 @@
+global:
+  scrape_interval: 30s
+
+scrape_configs:
+  - job_name: k3s_nodes
+    scheme: https
+
+    kubernetes_sd_configs:
+      - role: node
+        # api_server: "" # empty means inside the cluster
+
+    # These 2 were supposed to be automatic
+    # guess that was a lie
+    # Inserted by kubernetes, used for TLS check
+    tls_config:
+      ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+
+    # Inserted by kubernetes, used to auth to the API
+    bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+
+    relabel_configs:
+      # will add k8s labels to metric labels
+      # - action: labelmap
+      #   regex: __meta_kubernetes_node_label_(.+)
+      - source_labels: [__meta_kubernetes_node_name]
+        regex: (.+)
+        target_label: __metrics_path__
+        # replacement: /api/v1/nodes/${1}/proxy/metrics/cadvisor
+        replacement: /metrics/cadvisor

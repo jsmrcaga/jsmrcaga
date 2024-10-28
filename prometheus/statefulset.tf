@@ -1,10 +1,5 @@
 resource kubernetes_stateful_set_v1 prometheus {
-  timeouts {
-    create = "30s"
-    delete = "30s"
-    update = "30s"
-    read = "5s"
-  }
+  wait_for_rollout = false
 
   metadata {
     name = "prometheus"
@@ -37,6 +32,8 @@ resource kubernetes_stateful_set_v1 prometheus {
       }
 
       spec {
+        service_account_name = kubernetes_service_account_v1.prom_sa.metadata[0].name
+
         container {
           name = "prometheus"
           image = "prom/prometheus:v2.45.6"
@@ -49,6 +46,7 @@ resource kubernetes_stateful_set_v1 prometheus {
             "--web.console.templates=/usr/share/prometheus/consoles",
             "--web.config.file=${local.prom_web_config_file}",
             "--web.enable-lifecycle",
+            "--web.enable-remote-write-receiver"
           ]
 
           port {
