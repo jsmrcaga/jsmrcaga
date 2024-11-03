@@ -13,8 +13,8 @@ resource kubernetes_service_v1 alloy {
 
     port {
       name = "alloy-default-port"
-      port = 4138
-      target_port = 4138
+      port = local.otel_collector_port
+      target_port = local.otel_collector_port
     }
 
     port {

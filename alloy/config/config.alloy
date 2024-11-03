@@ -21,10 +21,20 @@ otelcol.processor.batch "metrics" {
 
 otelcol.exporter.prometheus "prometheus" {
 	forward_to = [prometheus.remote_write.prometheus.receiver]
+	resource_to_telemetry_conversion = true
 }
 
 prometheus.remote_write "prometheus" {
+	metadata_config {
+		send_interval = "10s"
+	}
+
 	endpoint {
 		url = sys.env("PROMETHEUS_WRITE_ENDPOINT")
+
+		basic_auth {
+			username = sys.env("PROMETHEUS_USERNAME")
+			password = sys.env("PROMETHEUS_PASSWORD")
+		}
 	}
 }
