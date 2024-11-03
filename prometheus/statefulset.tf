@@ -18,7 +18,7 @@ resource kubernetes_stateful_set_v1 prometheus {
   spec {
     service_name = local.service_name
 
-    replicas = 2
+    replicas = 1
 
     selector {
       match_labels = {
