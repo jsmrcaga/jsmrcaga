@@ -17,7 +17,7 @@ resource kubernetes_stateful_set_v1 alloy {
 
   spec {
     service_name = kubernetes_namespace_v1.alloy.metadata[0].name
-    replicas = 2
+    replicas = 1
 
     selector {
       match_labels = {
@@ -88,7 +88,7 @@ resource kubernetes_stateful_set_v1 alloy {
           ]
 
           port {
-            container_port = 4138
+            container_port = local.otel_collector_port
           }
 
           port {
@@ -97,7 +97,17 @@ resource kubernetes_stateful_set_v1 alloy {
 
           env {
             name = "PROMETHEUS_WRITE_ENDPOINT"
-            value = "http://prometheus:9090/api/v1/write"
+            value = "http://prometheus.prometheus.svc.cluster.local:9090/api/v1/write"
+          }
+
+          env {
+            name = "PROMETHEUS_USERNAME"
+            value = var.prometheus_auth.username
+          }
+
+          env {
+            name = "PROMETHEUS_PASSWORD"
+            value = var.prometheus_auth.password
           }
 
           volume_mount {
