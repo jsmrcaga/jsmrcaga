@@ -23,3 +23,9 @@ module keepalived_lb {
   vip = "192.168.1.200/24"
   router_id = 51
 }
+
+module traefik_override {
+  source = "./networking/traefik-k3s-ssl"
+
+  cloudflare_api_token = var.cloudflare.api_token
+}
