@@ -13,3 +13,9 @@ variable plex {
 		claim_token = string
 	})
 }
+
+variable cloudflare {
+	type = object({
+		api_token = string
+	})
+}
