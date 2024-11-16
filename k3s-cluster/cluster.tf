@@ -9,3 +9,17 @@ module plex {
 
   plex_claim_token = var.plex.claim_token
 }
+
+module keepalived_lb {
+  source = "./networking/stack"
+
+  name = "keepalived-lb"
+  namespace = "keepalived-lb"
+
+  node_selector = {
+    lb = true
+  }
+
+  vip = "192.168.1.200/24"
+  router_id = 51
+}

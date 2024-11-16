@@ -91,11 +91,6 @@ resource kubernetes_deployment_v1 pi_hole {
             value = "true"
           }
 
-          env {
-            name = "DHCP_ROUTER"
-            value = "192.168.1.18"
-          }
-
           # Copied from Livebox
           env {
             name = "DHCP_START"
