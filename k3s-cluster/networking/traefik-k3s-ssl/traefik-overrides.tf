@@ -25,14 +25,20 @@ resource kubernetes_manifest traefik_override {
           size = "128Mi"
         }
 
-        certificatesResolvers = {
+        # certificatesResolvers = {
+        # k3s is using the chart version 27
+        # wich for some fucking reason uses certResolvers instead
+        # @see: https://github.com/traefik/traefik-helm-chart/blob/4dadd6632db95549a211006844e5e7310e06f4a2/EXAMPLES.md?plain=1#L355
+        certResolvers = {
           letsencrypt = {
-            acme = {
-              dnsChallenge = {
-                provider = "cloudflare"
-              }
-              storage = "/data/acme.json"
+            # acme = {
+            # Also for some fucking reason it assumes it's acme
+            # fuck the rest I guess. Holy shit this is real bs
+            dnsChallenge = {
+              provider = "cloudflare"
             }
+            storage = "/data/acme.json"
+            # }
           }
         }
 
