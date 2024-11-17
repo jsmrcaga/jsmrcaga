@@ -1,10 +1,5 @@
 resource kubernetes_stateful_set_v1 grafana {
-  timeouts {
-    create = "30s"
-    delete = "30s"
-    update = "30s"
-    read = "5s"
-  }
+  wait_for_rollout = false
 
   metadata {
     name = "grafana"

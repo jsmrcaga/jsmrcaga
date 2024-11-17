@@ -37,3 +37,7 @@ module atlantis {
   web_username = var.atlantis.web_username
   web_password = var.atlantis.web_password
 }
+
+module grafana {
+  source = "./grafana"
+}
