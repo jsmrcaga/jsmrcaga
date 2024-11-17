@@ -19,3 +19,13 @@ variable cloudflare {
 		api_token = string
 	})
 }
+
+variable atlantis {
+	type = object({
+		api_secret = string,
+		web_username = string,
+		web_password = string
+	})
+
+	sensitive = true
+}

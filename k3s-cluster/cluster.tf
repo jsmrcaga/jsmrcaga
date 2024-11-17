@@ -29,3 +29,11 @@ module traefik_override {
 
   cloudflare_api_token = var.cloudflare.api_token
 }
+
+module atlantis {
+  source = "./atlantis"
+
+  api_secret = var.atlantis.api_secret
+  web_username = var.atlantis.web_username
+  web_password = var.atlantis.web_password
+}
