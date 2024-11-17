@@ -11,7 +11,7 @@ module plex {
 }
 
 module keepalived_lb {
-  source = "./networking/stack"
+  source = "./networking/keepalived"
 
   name = "keepalived-lb"
   namespace = "keepalived-lb"
@@ -22,6 +22,20 @@ module keepalived_lb {
 
   vip = "192.168.1.200/24"
   router_id = 51
+}
+
+module keepalived_control {
+  source = "./networking/keepalived"
+
+  name = "keepalived-control"
+  namespace = "keepalived-control"
+
+  node_selector = {
+    "node-role.kubernetes.io/control-plane" = true
+  }
+
+  vip = "192.168.1.250/24"
+  router_id = 52
 }
 
 module traefik_override {
