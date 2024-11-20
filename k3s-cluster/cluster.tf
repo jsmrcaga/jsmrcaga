@@ -55,3 +55,7 @@ module atlantis {
 module grafana {
   source = "./grafana"
 }
+
+module scaphandre {
+  source = "./scaphandre"
+}
