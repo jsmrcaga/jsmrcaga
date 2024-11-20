@@ -42,6 +42,11 @@ resource kubernetes_daemon_set_v1 scaphandre {
 
           command = ["scaphandre", "prometheus", "-p", local.prometheus_exporter_port]
 
+          security_context {
+            privileged = true
+            read_only_root_filesystem = true
+          }
+
           port {
             name = "metrics-pod"
             container_port = local.prometheus_exporter_port

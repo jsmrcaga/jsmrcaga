@@ -8,7 +8,7 @@ resource kubernetes_service_v1 scaphandre {
 
   spec {
     # no need to have this broader
-    type = "ClusterIP"
+    type = "NodePort"
 
     selector = {
       app = local.name
@@ -20,6 +20,7 @@ resource kubernetes_service_v1 scaphandre {
       // same on service & pod container
       target_port = "metrics-pod"
       port = local.prometheus_exporter_port
+      node_port = local.prometheus_exporter_port_node
     }
   }
 }
