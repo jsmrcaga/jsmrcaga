@@ -1,4 +1,4 @@
-resource kubernetes_stateful_set_v1 prometheus {
+resource kubernetes_deployment_v1 prometheus {
   wait_for_rollout = false
 
   metadata {
@@ -46,8 +46,21 @@ resource kubernetes_stateful_set_v1 prometheus {
             "--web.console.templates=/usr/share/prometheus/consoles",
             "--web.config.file=${local.prom_web_config_file}",
             "--web.enable-lifecycle",
-            "--web.enable-remote-write-receiver"
+            "--web.enable-remote-write-receiver",
+            "--storage.tsdb.retention.time=2y"
           ]
+
+          resources {
+            limits = {
+              cpu = "1000m"
+              memory = "4Gi"
+            }
+
+            requests = {
+              cpu = "500m"
+              memory = "2Gi"
+            }
+          }
 
           port {
             container_port = 9090
@@ -112,11 +125,11 @@ resource kubernetes_stateful_set_v1 prometheus {
 
         resources {
           limits = {
-            storage = "2Gi"
+            storage = "5Gi"
           }
 
           requests = {
-            storage = "1Gi"
+            storage = "2Gi"
           }
         }
       }
