@@ -28,3 +28,26 @@ scrape_configs:
         target_label: __metrics_path__
         # replacement: /api/v1/nodes/${1}/proxy/metrics/cadvisor
         replacement: /metrics/cadvisor
+
+  - job_name: k3s_scaphandre
+    scheme: http
+
+    kubernetes_sd_configs:
+      - role: node
+
+    tls_config:
+      ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+
+    # Inserted by kubernetes, used to auth to the API
+    bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+
+    relabel_configs:
+      - action: labelmap
+        regex: __meta_kubernetes_node_label_(.+)
+
+      - source_labels: [__meta_kubernetes_node_address_InternalIP]
+        target_label: __address__
+        replacement: $1:30091
+
+      - target_label: __metrics_path__
+        replacement: /metrics
