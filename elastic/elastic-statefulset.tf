@@ -3,12 +3,7 @@ locals {
 }
 
 resource kubernetes_stateful_set_v1 elastic {
-  timeouts {
-    create = "120s"
-    update = "120s"
-    delete = "120s"
-    read = "10s"
-  }
+  wait_for_rollout = false
 
   metadata {
     name = "elastic"
@@ -21,7 +16,7 @@ resource kubernetes_stateful_set_v1 elastic {
 
   spec {
     service_name = kubernetes_service_v1.elastic.metadata[0].name
-    replicas = 1
+    replicas = 0
 
     selector {
       match_labels = {
