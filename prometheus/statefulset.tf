@@ -1,4 +1,4 @@
-resource kubernetes_deployment_v1 prometheus {
+resource kubernetes_stateful_set_v1 prometheus {
   wait_for_rollout = false
 
   metadata {
@@ -52,13 +52,13 @@ resource kubernetes_deployment_v1 prometheus {
 
           resources {
             limits = {
-              cpu = "1000m"
-              memory = "4Gi"
+              cpu = "2000m"
+              memory = "6Gi"
             }
 
             requests = {
-              cpu = "500m"
-              memory = "2Gi"
+              cpu = "1000m"
+              memory = "4Gi"
             }
           }
 
