@@ -59,3 +59,9 @@ module grafana {
 module scaphandre {
   source = "./scaphandre"
 }
+
+module ddclient {
+  source = "./ddclient"
+
+  cloudflare_password = var.ddclient.cloudflare_password
+}

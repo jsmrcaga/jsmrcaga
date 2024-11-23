@@ -29,3 +29,9 @@ variable atlantis {
 
 	sensitive = true
 }
+
+variable ddclient {
+	type = object({
+		cloudflare_password = string
+	})
+}
