@@ -35,3 +35,13 @@ variable ddclient {
 		cloudflare_password = string
 	})
 }
+
+variable alloy {
+  sensitive = true
+	type = object({
+		prometheus_auth = object({
+			username = string
+			password = string
+		})
+	})
+}
