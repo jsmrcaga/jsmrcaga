@@ -36,7 +36,7 @@ resource kubernetes_stateful_set_v1 prometheus {
 
         container {
           name = "prometheus"
-          image = "prom/prometheus:v2.45.6"
+          image = "prom/prometheus:v3.0.1"
           args = [
             # Copied from
             # https://hub.docker.com/layers/prom/prometheus/v2.45.6/images/sha256-ec6ac6b5c46438a2a705e0a12e4404a381c9cc47d1f4f24c209d737b35266768?context=explore
