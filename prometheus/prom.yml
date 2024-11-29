@@ -31,6 +31,7 @@ scrape_configs:
 
   - job_name: k3s_scaphandre
     scheme: http
+    fallback_scrape_protocol: PrometheusText1.0.0
 
     kubernetes_sd_configs:
       - role: node
