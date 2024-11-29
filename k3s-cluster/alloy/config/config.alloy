@@ -1,0 +1,40 @@
+logging {
+  level  = "debug"
+  format = "logfmt"
+}
+
+otelcol.receiver.otlp "otel_collector" {
+	http {
+		endpoint = "0.0.0.0:4318"
+	}
+
+	output {
+		metrics = [otelcol.processor.batch.metrics.input]
+	}
+}
+
+otelcol.processor.batch "metrics" {
+  output {
+    metrics = [otelcol.exporter.prometheus.prometheus.input]
+  }
+}
+
+otelcol.exporter.prometheus "prometheus" {
+	forward_to = [prometheus.remote_write.prometheus.receiver]
+	resource_to_telemetry_conversion = true
+}
+
+prometheus.remote_write "prometheus" {
+	endpoint {
+		metadata_config {
+			send_interval = "1s"
+		}
+
+		url = sys.env("PROMETHEUS_WRITE_ENDPOINT")
+
+		basic_auth {
+			username = sys.env("PROMETHEUS_USERNAME")
+			password = sys.env("PROMETHEUS_PASSWORD")
+		}
+	}
+}
