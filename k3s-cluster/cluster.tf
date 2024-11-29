@@ -65,3 +65,9 @@ module ddclient {
 
   cloudflare_password = var.ddclient.cloudflare_password
 }
+
+module alloy {
+  source = "./alloy"
+
+  prometheus_auth = var.alloy.prometheus_auth
+}
