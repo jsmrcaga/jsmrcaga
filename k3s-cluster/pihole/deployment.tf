@@ -7,7 +7,7 @@ resource kubernetes_deployment_v1 pi_hole {
   }
 
   spec {
-    replicas = 1
+    replicas = 0
 
     strategy {
       type = "RollingUpdate"
