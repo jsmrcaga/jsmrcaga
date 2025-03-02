@@ -19,6 +19,14 @@ module atlantis {
   web_password = var.atlantis.web_password
 }
 
+module flagsmith {
+  source = "./flagsmith"
+
+  admin_email = base64decode("am9Aam9jb2xpbmEuY29t")
+  org_name = "control"
+}
+
+
 # Monitoring
 module grafana {
   source = "./grafana"
