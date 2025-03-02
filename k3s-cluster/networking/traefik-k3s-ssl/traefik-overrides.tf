@@ -15,7 +15,7 @@ resource kubernetes_manifest traefik_override {
         persistence = {
           enabled = true
           # only storage-class enabled in k3s by default
-          storageClass = "local-path"
+          storageClass = "longhorn"
 
           # These are defaults anyway, but this way we see
           # where the f*** the volumeMount in the initContainer
