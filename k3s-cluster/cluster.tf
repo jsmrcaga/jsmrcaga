@@ -1,13 +1,45 @@
-module pi_hole {
-  source = "./pihole"
-
-  pihole_password = var.pihole.password
+# Storage
+module longhorn {
+  source = "./longhorn"
 }
 
+
+# Apps
 module plex {
   source = "./plex"
 
   plex_claim_token = var.plex.claim_token
+}
+
+module atlantis {
+  source = "./atlantis"
+
+  api_secret = var.atlantis.api_secret
+  web_username = var.atlantis.web_username
+  web_password = var.atlantis.web_password
+}
+
+# Monitoring
+module grafana {
+  source = "./grafana"
+}
+
+module scaphandre {
+  source = "./scaphandre"
+}
+
+module alloy {
+  source = "./alloy"
+
+  prometheus_auth = var.alloy.prometheus_auth
+}
+
+
+# Networking
+module pi_hole {
+  source = "./pihole"
+
+  pihole_password = var.pihole.password
 }
 
 module keepalived_lb {
@@ -44,30 +76,8 @@ module traefik_override {
   cloudflare_api_token = var.cloudflare.api_token
 }
 
-module atlantis {
-  source = "./atlantis"
-
-  api_secret = var.atlantis.api_secret
-  web_username = var.atlantis.web_username
-  web_password = var.atlantis.web_password
-}
-
-module grafana {
-  source = "./grafana"
-}
-
-module scaphandre {
-  source = "./scaphandre"
-}
-
 module ddclient {
   source = "./ddclient"
 
   cloudflare_password = var.ddclient.cloudflare_password
-}
-
-module alloy {
-  source = "./alloy"
-
-  prometheus_auth = var.alloy.prometheus_auth
 }
