@@ -12,7 +12,7 @@ resource kubernetes_config_map_v1 ddclient_config {
       login=token \
       zone=jocolina.com \
       password='${var.cloudflare_password}' \
-      home.jocolina.com, snitch.jocolina.com, em-api.jocolina.com, grafana.jocolina.com, prometheus.jocolina.com, atlantis.jocolina.com, elastic.jocolina.com
+      home.jocolina.com, snitch.jocolina.com, em-api.jocolina.com, grafana.jocolina.com, prometheus.jocolina.com, atlantis.jocolina.com, elastic.jocolina.com, flags.jocolina.com
     CONFIG
   }
 }
