@@ -45,3 +45,9 @@ variable alloy {
 		})
 	})
 }
+
+variable wireguard {
+	type = object({
+		peers = list(string)
+	})
+}
