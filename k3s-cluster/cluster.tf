@@ -89,3 +89,8 @@ module ddclient {
 
   cloudflare_password = var.ddclient.cloudflare_password
 }
+
+module wireguard {
+  source = "./wireguard"
+  peers = var.wireguard.peers
+}
