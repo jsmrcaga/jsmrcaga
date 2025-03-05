@@ -91,6 +91,11 @@ module ddclient {
 }
 
 module wireguard {
-  source = "./wireguard"
+  source = "./networking/wireguard"
+
+  vpn_url = "home.jocolina.com"
   peers = var.wireguard.peers
+
+  vrrp_virtual_ip = "192.168.1.100"
+  vrrp_router_id = 53
 }
