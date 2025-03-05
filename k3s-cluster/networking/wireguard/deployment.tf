@@ -1,6 +1,3 @@
-# Algo
-# vrrp checks if VPN is up
-# if no, address is given up
 resource kubernetes_deployment_v1 wireguard {
   wait_for_rollout = false
 
@@ -27,14 +24,41 @@ resource kubernetes_deployment_v1 wireguard {
       }
 
       spec {
-        host_network = true
+        node_selector = local.node_selector
+
+        security_context {
+          sysctl {
+            name = "net.ipv4.conf.all.src_valid_mark"
+            value = "1"
+          }
+
+          sysctl {
+            name = "net.ipv4.ip_forward"
+            value = "1"
+          }
+        }
+
+        volume {
+          name = "wireguard-modules"
+          host_path {
+            path = "/lib/modules"
+            type = ""
+          }
+        }
 
         container {
-          image = "linuxserver/wireguard"
+          name = "wireguard"
+          # image = "linuxserver/wireguard"
+          image = "ghcr.io/wg-easy/wg-easy:14"
 
           security_context {
             capabilities {
-              add = ["SYS_MODULE"]
+              add = [
+                "SYS_MODULE",
+                "NET_RAW",
+                "NET_ADMIN",
+                "NET_BROADCAST"
+              ]
             }
           }
 
@@ -57,24 +81,35 @@ resource kubernetes_deployment_v1 wireguard {
           }
 
           env {
-            name = "PEERS"
-            value = join(",", var.peers)
+            name = "WG_HOST"
+            value = var.vpn_url
+          }
+
+          env {
+            name = "PASSWORD_HASH"
+            value = bcrypt("test-password")
           }
 
           port {
             container_port = 51820
             host_port = 51820
-            name = "wireguard-port"
+            name = "wireguard-p-udp"
             protocol = "UDP"
           }
-        }
-      }
 
-      volume {
-        name = "wireguard-modules"
-        host_path {
-          path = "/lib/modules"
-          type = ""
+          port {
+            container_port = 51820
+            host_port = 51820
+            name = "wireguard-p-tcp"
+            protocol = "TCP"
+          }
+
+          port {
+            container_port = 51821
+            host_port = 51821
+            name = "wireguard-p-web"
+            protocol = "TCP"
+          }
         }
       }
     }
