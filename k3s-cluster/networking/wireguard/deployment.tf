@@ -99,7 +99,7 @@ resource kubernetes_deployment_v1 wireguard {
 
           env {
             name = "PASSWORD_HASH"
-            value = bcrypt("test-password")
+            value = var.ui_password_bcrypted
           }
 
           port {
