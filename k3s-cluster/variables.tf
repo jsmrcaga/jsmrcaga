@@ -48,6 +48,6 @@ variable alloy {
 
 variable wireguard {
 	type = object({
-		peers = list(string)
+		ui_password = string
 	})
 }

@@ -94,7 +94,7 @@ module wireguard {
   source = "./networking/wireguard"
 
   vpn_url = "home.jocolina.com"
-  peers = var.wireguard.peers
+  ui_password_bcrypted = bcrypt(var.wireguard.ui_password)
 
   vrrp_virtual_ip = "192.168.1.100"
   vrrp_router_id = 53
