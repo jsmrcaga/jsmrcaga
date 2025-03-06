@@ -39,6 +39,13 @@ resource kubernetes_deployment_v1 wireguard {
         }
 
         volume {
+          name = "wireguard-config"
+          persistent_volume_claim {
+            claim_name = kubernetes_persistent_volume_claim_v1.volume_claim.metadata[0].name
+          }
+        }
+
+        volume {
           name = "wireguard-modules"
           host_path {
             path = "/lib/modules"
@@ -78,6 +85,11 @@ resource kubernetes_deployment_v1 wireguard {
             mount_path = "/lib/modules"
             name = "wireguard-modules"
             read_only = true
+          }
+
+          volume_mount {
+            mount_path = "/etc/wireguard"
+            name = "wireguard-config"
           }
 
           env {
