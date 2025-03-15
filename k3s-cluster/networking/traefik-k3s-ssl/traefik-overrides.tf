@@ -70,6 +70,16 @@ resource kubernetes_manifest traefik_override {
           fsGroup = 65532
           fsGroupChangePolicy = "OnRootMismatch"
         }
+
+        # Fucking helm chart enables prometheus metrics by default
+        # but not the fucking service to contact the fucking thing
+        metrics = {
+          prometheus = {
+            service = {
+              enabled = true
+            }
+          }
+        }
       })
     }
   }
