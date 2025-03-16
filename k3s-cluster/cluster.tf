@@ -28,6 +28,11 @@ module flagsmith {
 
 
 # Monitoring
+module prometheus {
+  source = "./prometheus"
+  prom_password = var.prometheus.password
+}
+
 module grafana {
   source = "./grafana"
 }

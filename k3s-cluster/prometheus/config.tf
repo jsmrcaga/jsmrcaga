@@ -5,7 +5,7 @@ resource kubernetes_config_map_v1 prom_config {
   }
 
   data = {
-    "content" = file("./prom.yml")
+    "content" = file("${path.module}/prom.yml")
   }
 }
 
@@ -21,9 +21,6 @@ locals {
   prom_username = coalesce(var.prom_username, "jsmrcaga")
 
   prom_password = coalesce(var.prom_password, random_password.prom_pass.result)
-  prom_alloy_password_bcrypted = bcrypt(random_password.alloy_pass.result)
-
-  prom_password_bcrytped = bcrypt(local.prom_password, 10)
 
   prom_users = {
     "${local.prom_username}" = local.prom_password
