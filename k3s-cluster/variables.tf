@@ -50,4 +50,12 @@ variable wireguard {
 	type = object({
 		ui_password = string
 	})
+	sensitive = true
+}
+
+variable prometheus {
+	type = object({
+		password = string
+	})
+	sensitive = true
 }
