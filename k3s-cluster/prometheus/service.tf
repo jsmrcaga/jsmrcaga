@@ -28,6 +28,10 @@ resource kubernetes_ingress_v1 prometheus_ingress {
 
     annotations = {
       "kubernetes.io/ingress.class" = "traefik"
+      "traefik.ingress.kubernetes.io/router.entrypoints" = "websecure"
+      "traefik.ingress.kubernetes.io/router.tls" = "true"
+      "traefik.ingress.kubernetes.io/router.tls.certresolver" = "letsencrypt"
+      "traefik.ingress.kubernetes.io/router.tls.domains.0.main" = "prometheus.jocolina.com"
     }
   }
 
