@@ -56,7 +56,7 @@ scrape_configs:
   - job_name: Traefik HTTP
     scheme: http
     # We're gonna be scrapping a lot more for HTTP requests to get better visibility
-    scrape_interval: 5s
+    scrape_interval: 15s
 
     metrics_path: /metrics
 
