@@ -21,7 +21,7 @@ otelcol.processor.batch "metrics" {
 
 otelcol.exporter.prometheus "prometheus" {
 	forward_to = [prometheus.remote_write.prometheus.receiver]
-	# This is dangerous, might be better to use a transform
+	// This is dangerous, might be better to use a transform
 	resource_to_telemetry_conversion = true
 }
 

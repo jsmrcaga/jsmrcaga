@@ -28,14 +28,15 @@ resource kubernetes_stateful_set_v1 alloy {
       spec {
         // only 1 node will be able to read/write to this volume
         access_modes = ["ReadWriteOnce"]
+        storage_class_name = "longhorn"
 
         resources {
           limits = {
-            storage = "2Gi"
+            storage = "1Gi"
           }
 
           requests = {
-            storage = "2Gi"
+            storage = "1Gi"
           }
         }
       }
