@@ -31,27 +31,6 @@ resource kubernetes_stateful_set_v1 grafana {
       }
 
       spec {
-        init_container {
-          name = "permissions-fixer"
-          image = "alpine:3.19"
-
-          security_context {
-            run_as_user = "0"
-          }
-
-          volume_mount {
-            name = "grafana-data-migration"
-            # from grafana.ini
-            mount_path = "/grafana-migration"
-          }
-
-          command = [
-            "sh",
-            "-c",
-            "chown -R 472:0 /grafana-migration"
-          ]
-        }
-
         container {
           name = "grafana"
           image = "grafana/grafana:10.2.8"
@@ -65,7 +44,7 @@ resource kubernetes_stateful_set_v1 grafana {
           }
 
           volume_mount {
-            name = "grafana-data"
+            name = "grafana-data-longhorn"
             # from grafana.ini
             mount_path = "/var/lib/grafana"
           }
@@ -74,12 +53,6 @@ resource kubernetes_stateful_set_v1 grafana {
             name = "grafana-config"
             # from grafana.ini
             mount_path = "/grafana/config"
-          }
-
-          volume_mount {
-            name = "grafana-data-migration"
-            # from grafana.ini
-            mount_path = "/grafana-migration"
           }
         }
 
@@ -98,30 +71,10 @@ resource kubernetes_stateful_set_v1 grafana {
         }
 
         volume {
-          name = "grafana-data-migration"
+          name = "grafana-data-longhorn"
 
           persistent_volume_claim {
             claim_name = kubernetes_persistent_volume_claim_v1.data.metadata[0].name
-          }
-        }
-      }
-    }
-
-    volume_claim_template {
-      metadata {
-        name = "grafana-data"
-      }
-
-      spec {
-        access_modes = ["ReadWriteOnce"]
-
-        resources {
-          limits = {
-            storage = "2Gi"
-          }
-
-          requests = {
-            storage = "2Gi"
           }
         }
       }
