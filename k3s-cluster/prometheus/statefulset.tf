@@ -67,7 +67,7 @@ resource kubernetes_stateful_set_v1 prometheus {
           }
 
           volume_mount {
-            name = "prom-data"
+            name = "prom-longhorn"
             # --storage.tsdb.path
             mount_path = "/prometheus"
           }
@@ -111,25 +111,12 @@ resource kubernetes_stateful_set_v1 prometheus {
             }
           }
         }
-      }
-    }
 
-    # For storage
-    volume_claim_template {
-      metadata {
-        name = "prom-data"
-      }
+        volume {
+          name = "prom-longhorn"
 
-      spec {
-        access_modes = ["ReadWriteOnce"]
-
-        resources {
-          limits = {
-            storage = "5Gi"
-          }
-
-          requests = {
-            storage = "2Gi"
+          persistent_volume_claim {
+            claim_name = kubernetes_persistent_volume_claim_v1.data.metadata[0].name
           }
         }
       }
