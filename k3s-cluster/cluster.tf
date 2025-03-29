@@ -114,3 +114,7 @@ module wireguard {
   vrrp_virtual_ip = "192.168.1.100"
   vrrp_router_id = 53
 }
+
+module logseq {
+  source = "./logseq"
+}
