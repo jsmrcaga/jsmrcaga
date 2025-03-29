@@ -93,6 +93,16 @@ module ddclient {
   source = "./ddclient"
 
   cloudflare_password = var.ddclient.cloudflare_password
+  hostnames = [
+    "home.jocolina.com",
+    "snitch.jocolina.com",
+    "em-api.jocolina.com",
+    "grafana.jocolina.com",
+    "prometheus.jocolina.com",
+    "atlantis.jocolina.com",
+    "elastic.jocolina.com",
+    "flags.jocolina.com",
+  ]
 }
 
 module wireguard {
