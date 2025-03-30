@@ -53,6 +53,8 @@ resource kubernetes_stateful_set_v1 alloy {
       }
 
       spec {
+        service_account_name = kubernetes_service_account_v1.alloy_sa.metadata[0].name
+
         volume {
           name = "alloy-config"
           config_map {
@@ -104,6 +106,11 @@ resource kubernetes_stateful_set_v1 alloy {
           env {
             name = "PROMETHEUS_PASSWORD"
             value = var.prometheus_auth.password
+          }
+
+          env {
+            name = "LOKI_URL"
+            value = "http://loki.loki.svc.cluster.local:8912/loki/api/v1/push"
           }
 
           volume_mount {
