@@ -1,0 +1,33 @@
+# Target is the component we want to deploy
+# in this case we deploy everything in the same pod
+target: all
+
+# For now no auth, Loki is only in the internal service
+auth_enabled: false
+
+server:
+  http_listen_port: 3100
+
+common:
+  replication_factor: 1
+  path_prefix: /loki/storage
+
+  ring:
+    instance_addr: 127.0.0.1
+    kvstore:
+      store: inmemory
+
+storage_config:
+  filesystem:
+    directory: /loki/storage/chunks
+
+schema_config:
+  configs:
+  - from: 2025-01-01
+    store: tsdb
+    object_store: filesystem
+    schema: v13
+    index:
+      prefix: index_
+      period: 24h
+
