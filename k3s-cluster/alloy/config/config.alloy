@@ -3,6 +3,9 @@ logging {
   format = "logfmt"
 }
 
+// *****************
+// Metrics
+// *****************
 otelcol.receiver.otlp "otel_collector" {
 	http {
 		endpoint = "0.0.0.0:4318"
@@ -38,4 +41,27 @@ prometheus.remote_write "prometheus" {
 			password = sys.env("PROMETHEUS_PASSWORD")
 		}
 	}
+}
+
+// *****************
+// Logs
+// *****************
+discovery.kubernetes "logging_pods" {
+	role = "pod"
+
+	selectors {
+		role = "pod"
+		label = "loki.grafana/scrape_logs=true"
+	}
+}
+
+loki.source.kubernetes "pods" {
+	targets = discovery.kubernetes.logging_pods.targets
+  forward_to = [loki.write.logs.receiver]
+}
+
+loki.write "logs" {
+  endpoint {
+    url = sys.env("LOKI_URL")
+  }
 }
