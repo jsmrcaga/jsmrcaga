@@ -55,8 +55,33 @@ discovery.kubernetes "logging_pods" {
 	}
 }
 
-loki.source.kubernetes "pods" {
+discovery.relabel "loki_labels" {
 	targets = discovery.kubernetes.logging_pods.targets
+
+	rule {
+		target_label = "pod"
+		source_labels = ["__meta_kubernetes_pod_name"]
+	}
+
+	rule {
+		target_label = "namespace"
+		source_labels = ["__meta_kubernetes_namespace"]
+	}
+
+	rule {
+		target_label = "node"
+		source_labels = ["__meta_kubernetes_pod_node_name"]
+	}
+
+	rule {
+		target_label = "version"
+		source_labels = ["__meta_kubernetes_pod_container_image"]
+	}
+}
+
+
+loki.source.kubernetes "pods" {
+	targets = discovery.relabel.loki_labels.output
   forward_to = [loki.write.logs.receiver]
 }
 
