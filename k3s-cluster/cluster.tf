@@ -47,6 +47,10 @@ module alloy {
   prometheus_auth = var.alloy.prometheus_auth
 }
 
+module loki {
+  source = "./loki"
+}
+
 
 # Networking
 module pi_hole {
