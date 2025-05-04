@@ -60,7 +60,7 @@ resource kubernetes_stateful_set_v1 plex {
 
         container {
           name = local.name
-          image = "plexinc/pms-docker:1.41.1.9057-af5eaea7a"
+          image = "plexinc/pms-docker:1.41.6.9685-d301f511a"
 
           env {
             name = "TZ"
