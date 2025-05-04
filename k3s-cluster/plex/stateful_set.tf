@@ -53,6 +53,7 @@ resource kubernetes_stateful_set_v1 plex {
       }
 
       spec {
+        runtime_class_name = "nvidia"
         node_selector = {
           ethernet-only = "true"
         }
@@ -74,6 +75,16 @@ resource kubernetes_stateful_set_v1 plex {
           env {
             name = "ADVERTISE_IP"
             value = "http://192.168.1.18:32400/"
+          }
+
+          env {
+            name  = "NVIDIA_VISIBLE_DEVICES"
+            value = "all"
+          }
+
+          env {
+            name  = "NVIDIA_DRIVER_CAPABILITIES"
+            value = "all"
           }
 
           dynamic "volume_mount" {
