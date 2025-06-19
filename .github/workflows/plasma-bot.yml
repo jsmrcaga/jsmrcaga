@@ -4,6 +4,8 @@ on:
   push:
     tags:
       - plasma-bot-v*
+  pull_request:
+    types: [opened, synchronize]
 
 defaults:
   run:
@@ -27,6 +29,12 @@ jobs:
           #!/bin/bash
 
           set -e
+
+          if [[ "${{ github.event_name }}" == 'pull_request' ]]; then
+            echo "tag=jsmrcaga/plasma-bot:pull_request" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
           version=${VERSION_TAG##plasma-bot-}
           tag="jsmrcaga/plasma-bot:${version}"
           echo "tag=${tag}" >> "$GITHUB_OUTPUT"
@@ -35,7 +43,9 @@ jobs:
 
       - name: Docker login
         run: echo ${{ secrets.DOCKER_HUB_PASSWORD }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+        if: ${{ github.event_name == 'push' }}
 
       - run: docker push ${{ steps.tag.outputs.tag }}
+        if: ${{ github.event_name == 'push' }}
 
 
