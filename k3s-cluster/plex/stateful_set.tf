@@ -53,9 +53,17 @@ resource kubernetes_stateful_set_v1 plex {
       }
 
       spec {
-        runtime_class_name = "nvidia"
+        # runtime_class_name = "nvidia"
         node_selector = {
           ethernet-only = "true"
+        }
+
+        volume {
+          name = "gpu-volume"
+          host_path {
+            path = "/dev/dri"
+            type = "Directory"
+          }
         }
 
         container {
@@ -85,6 +93,11 @@ resource kubernetes_stateful_set_v1 plex {
           env {
             name  = "NVIDIA_DRIVER_CAPABILITIES"
             value = "all"
+          }
+
+          volume_mount {
+            name = "gpu-volume"
+            mount_path = "/dev/dri"
           }
 
           dynamic "volume_mount" {
