@@ -18,6 +18,8 @@ module repo {
       AWS_SECRET_ACCESS_KEY = var.aws.secret
       VERCEL_PROJECT_ID = vercel_project.landing.id
       VERCEL_TOKEN = var.vercel.token
+      DOCKER_HUB_USERNAME = var.docker.username
+      DOCKER_HUB_PASSWORD =var.docker.password
     }
   }
 

@@ -44,3 +44,10 @@ variable grafana {
     account_id = string
   })
 }
+
+variable docker {
+  type = object({
+    username = string
+    password = string
+  })
+}
