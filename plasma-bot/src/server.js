@@ -2,6 +2,10 @@ const fastify = require('fastify');
 
 const server = fastify();
 
+server.get('/health', () => {
+	return { ok: true };
+});
+
 server.register(require('./routes'));
 
 server.setErrorHandler((error, req, reply) => {
