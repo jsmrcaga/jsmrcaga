@@ -26,7 +26,7 @@ resource kubernetes_deployment_v1 plasma_bot {
       spec {
         container {
           name = "plasma-bot"
-          image = "jsmrcaga/plasma-bot:v0.0.2"
+          image = "jsmrcaga/plasma-bot:v0.0.3"
 
           resources {
             requests = {
