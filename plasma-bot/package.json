@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "docker compose up --remove-orphans",
-    "ngrok-tg-webhook": "node ./src/scripts/telegram-ngrok-webhook"
+    "ngrok-tg-webhook": "node ./src/scripts/telegram-ngrok-webhook",
+    "start": "node src/index.js"
   },
   "keywords": [],
   "author": "Jo Colina <jo@jocolina.com>",
