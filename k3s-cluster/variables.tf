@@ -14,6 +14,13 @@ variable plex {
 	})
 }
 
+variable plasma {
+	type = object({
+		image = string
+		env = map(string)
+	})
+}
+
 variable cloudflare {
 	type = object({
 		api_token = string

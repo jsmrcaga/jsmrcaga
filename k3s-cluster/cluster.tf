@@ -26,6 +26,16 @@ module flagsmith {
   org_name = "control"
 }
 
+module plasma {
+  source = "./plasma"
+
+  env = var.plasma.env
+
+  plasma = {
+    image = var.plasma.image
+  }
+}
+
 
 # Monitoring
 module prometheus {
