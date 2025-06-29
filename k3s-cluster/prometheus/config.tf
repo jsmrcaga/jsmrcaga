@@ -45,6 +45,18 @@ resource kubernetes_config_map_v1 prom_web_config {
   }
 }
 
+resource kubernetes_config_map_v1 prom_recording_rules {
+  metadata {
+    namespace = local.namespace
+    name = "prom-recording-rules"
+  }
+
+  data = {
+    # 1 item per file
+    for x in local.recording_rules: x => file("${path.module}/recording_rules/${x}")
+  }
+}
+
 output prom_users {
   sensitive = true
   value = local.prom_users

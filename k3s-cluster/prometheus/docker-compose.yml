@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  prometheus:
+    image: prom/prometheus:v3.4.2
+    entrypoint: promtool
+    command: [
+      check,
+      rules,
+      # add extra rule files below
+      /rules/em-metrics.rules.yml
+    ]
+    volumes:
+      - ./recording_rules:/rules

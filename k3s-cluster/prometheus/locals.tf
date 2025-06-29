@@ -4,4 +4,5 @@ locals {
   prom_config_dir = "/etc/prometheus"
   prom_config_file = "${local.prom_config_dir}/global/prometheus.yml"
   prom_web_config_file = "${local.prom_config_dir}/web/prometheus-web.yml"
+  recording_rules = fileset("${path.module}/recording_rules", "*.yml")
 }
