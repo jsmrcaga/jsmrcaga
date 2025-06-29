@@ -1,0 +1,40 @@
+groups:
+  - name: em-metrics-dora
+    interval: 1d
+    # DORA
+    # - Deployment Frequency
+    # - Lead time for changes
+    # - Change failure rate
+    # - Time to restore
+    rules:
+      - record: em_dora_deployment_frequency_daily
+        # nb of deployments in the day
+        expr: sum by (environment) (deployment_frequency_total)
+
+      - record: em_dora_lead_time_for_changes_daily_bucket
+        expr: sum by (le, environment) (rate(lead_time_for_changes_millisecond_bucket[1d]))
+
+      - record: em_dora_change_failure_rate_daily
+        expr: sum by (environment) (change_failure_count_deployment_total) / sum by (environment) (deployment_frequency_total)
+
+      - record: em_dora_time_to_restore_daily_bucket
+        expr: sum by (le, environment) (rate(time_to_restore_millisecond_bucket[1d]))
+
+  - name: em-metrics-ticketing
+    interval: 1d
+    # Ticketing 
+    # - Time per ticket (per type)
+    # - Time per ticket
+    # - Estimation changes (hist + and hist -)
+    rules:
+      - record: em_ticketing_time_per_ticket_type_daily_bucket
+        expr: sum by (le, environment, ticket_type) (rate(time_per_ticket_minute_bucket[1d]))
+
+      - record: em_ticketing_time_per_ticket_daily_bucket
+        expr: sum by (le, environment) (rate(time_per_ticket_minute_bucket[1d]))
+
+      - record: em_ticketing_estimation_changes_positive_bucket
+        expr: sum by (le, environment) (rate(ticket_estimation_changed_points_bucket[1d]))
+
+      - record: em_ticketing_estimation_changes_negative_bucket
+        expr: sum by (le, environment) (rate(ticket_estimation_changed_negative_points_bucket[1d:1d]))
