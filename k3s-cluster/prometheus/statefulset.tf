@@ -81,6 +81,11 @@ resource kubernetes_stateful_set_v1 prometheus {
             name = "prom-web-config"
             mount_path = "${local.prom_config_dir}/web"
           }
+
+          volume_mount {
+            name = "prom-recording-rules"
+            mount_path = "${local.prom_config_dir}/rules"
+          }
         }
 
         # For config
@@ -117,6 +122,15 @@ resource kubernetes_stateful_set_v1 prometheus {
 
           persistent_volume_claim {
             claim_name = kubernetes_persistent_volume_claim_v1.data.metadata[0].name
+          }
+        }
+
+        volume {
+          name = "prom-recording-rules"
+          config_map {
+            name = kubernetes_config_map_v1.prom_recording_rules.metadata[0].name
+            optional = true
+            #  not specifying items makes it project every item as a file
           }
         }
       }
