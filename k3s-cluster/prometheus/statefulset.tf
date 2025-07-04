@@ -47,7 +47,7 @@ resource kubernetes_stateful_set_v1 prometheus {
             "--web.config.file=${local.prom_web_config_file}",
             "--web.enable-lifecycle",
             "--web.enable-remote-write-receiver",
-            "--storage.tsdb.retention.time=2y"
+            "--storage.tsdb.retention.time=1y"
           ]
 
           resources {
