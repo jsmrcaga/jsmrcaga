@@ -12,7 +12,7 @@ resource kubernetes_persistent_volume_claim_v1 data {
 
     resources {
       requests = {
-        storage = "50Gi"
+        storage = "70Gi"
       }
 
       limits = {
