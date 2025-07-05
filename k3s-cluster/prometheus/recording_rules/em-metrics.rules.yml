@@ -22,7 +22,7 @@ groups:
 
   - name: em-metrics-ticketing
     interval: 1d
-    # Ticketing 
+    # Ticketing
     # - Time per ticket (per type)
     # - Time per ticket
     # - Estimation changes (hist + and hist -)
