@@ -60,7 +60,18 @@ export function Experience() {
 							title="Engineering Manager"
 							dates="2023 - present"
 						>
-							Currently leading a team of 4 developers on the Accounting team. Our mission is to facilitate accounting tasks for both Shine users & their accountants.
+							Currently leading a team on the Accounting domain.
+							<br/>
+							Our mission is to facilitate accounting tasks for both Shine users & their accountants.
+							<br/>
+							<br/>
+							<ul>
+								<li>Kickstarted and bootstrapped tech-wide adoption of business/application metrics (based on Prometheus)</li>
+								<li>Kickstarted and bootstrapped tech-wide adoption of efficient error alerting (based on database and Sentry)</li>
+								<br/>
+								<li>Successfully helped the team navigate the company acquisition</li>
+							</ul>
+
 						</ExperienceItem>
 
 						<Title as='h1' className={classnames(Style['company-title'], Style['mobile-text'])}>
@@ -143,7 +154,6 @@ export function Experience() {
 								<strong>Weezevent</strong>
 							</GradientText>
 						</Title>
-
 					</Grid>
 				</ScrollAnimate>
 			</StickySection>
