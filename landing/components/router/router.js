@@ -19,8 +19,6 @@ export function Router({ children }) {
 				return;
 			}
 
-			console.log(event);
-
 			const { state: { as } } = event;
 			navigate(done => {
 				setLocation(as);
@@ -55,6 +53,11 @@ export function useRouter() {
 
 export function Route({ path='/', children }) {
 	const { location } = useRouter();
+
+	const isSsr = Boolean(globalThis.window);
+	if(!isSsr) {
+		return children;
+	}
 
 	if(path !== location) {
 		return null;
