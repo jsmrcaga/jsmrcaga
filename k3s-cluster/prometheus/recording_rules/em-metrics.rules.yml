@@ -58,23 +58,23 @@ groups:
         expr: rate(pull_request_closed_count_pull_requests_total[1d]) * 60 * 60 * 24
 
       - record: em_pull_request_loc_added_daily_bucket
-        expr: sum by (le, team_id) (rate(pull_request_loc_added[1d]))
+        expr: sum by (le, team_id) (rate(pull_request_loc_added_lines_of_code_bucket[1d]))
 
       - record: em_pull_request_loc_removed_daily_bucket
-        expr: sum by (le, team_id) (rate(pull_request_loc_removed[1d]))
+        expr: sum by (le, team_id) (rate(pull_request_loc_removed_lines_of_code_bucket[1d]))
 
       - record: em_pull_request_nb_reviews_per_pr_daily_bucket
-        expr: sum by (le, team_id) (rate(pull_request_nb_reviews_per_pr[1d]))
+        expr: sum by (le, team_id) (rate(pull_request_nb_reviews_per_pr_bucket[1d]))
 
       - record: em_pull_request_nb_comments_per_review_daily_bucket
-        expr: sum by (le, team_id) (rate(pull_request_nb_comments_per_review[1d]))
+        expr: sum by (le, team_id) (rate(pull_request_nb_comments_per_review_comments_bucket[1d]))
 
       - record: em_pull_request_time_to_first_review_minutes_daily_bucket
-        expr: sum by (le, team_id) (rate(pull_request_time_to_first_review_minutes[1d]))
+        expr: sum by (le, team_id) (rate(pull_request_time_to_first_review_minutes_minute_bucket[1d]))
 
       - record: em_pull_request_time_to_approve_minutes_daily_bucket
-        expr: sum by (le, team_id) (rate(pull_request_time_to_approve_minutes[1d]))
+        expr: sum by (le, team_id) (rate(pull_request_time_to_approve_minutes_minute_bucket[1d]))
 
       - record: em_pull_request_time_to_merge_minutes_daily_bucket
-        expr: sum by (le, team_id) (rate(pull_request_time_to_merge_minutes[1d]))
+        expr: sum by (le, team_id) (rate(pull_request_time_to_merge_minutes_minute_bucket[1d]))
 
