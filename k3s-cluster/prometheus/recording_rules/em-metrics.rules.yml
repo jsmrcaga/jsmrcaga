@@ -13,13 +13,13 @@ groups:
         expr: rate(deployment_frequency_total[1d]) * 60 * 60 * 24
 
       - record: em_dora_lead_time_for_changes_daily_bucket
-        expr: sum by (le, environment) (rate(lead_time_for_changes_millisecond_bucket[1d]))
+        expr: sum by (le, environment) (rate(lead_time_for_changes_minute_bucket[1d]))
 
       - record: em_dora_change_failure_rate_daily
         expr: sum by (environment) (change_failure_count_deployment_total) / sum by (environment) (deployment_frequency_total)
 
       - record: em_dora_time_to_restore_daily_bucket
-        expr: sum by (le, environment) (rate(time_to_restore_millisecond_bucket[1d]))
+        expr: sum by (le, environment) (rate(time_to_restore_minute_bucket[1d]))
 
   - name: em-metrics-ticketing
     interval: 1d
