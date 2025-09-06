@@ -33,7 +33,7 @@ resource kubernetes_stateful_set_v1 grafana {
       spec {
         container {
           name = "grafana"
-          image = "grafana/grafana:10.2.8"
+          image = "grafana/grafana:12.1.0"
 
           args = [
             "--config=/grafana/config/grafana.ini"
