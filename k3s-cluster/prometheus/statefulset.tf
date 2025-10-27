@@ -45,9 +45,11 @@ resource kubernetes_stateful_set_v1 prometheus {
             "--web.console.libraries=/usr/share/prometheus/console_libraries",
             "--web.console.templates=/usr/share/prometheus/consoles",
             "--web.config.file=${local.prom_web_config_file}",
+            "--web.enable-admin-api",
             "--web.enable-lifecycle",
             "--web.enable-remote-write-receiver",
-            "--storage.tsdb.retention.time=1y"
+            "--storage.tsdb.retention.time=1y",
+            "--storage.tsdb.retention.size=100GB"
           ]
 
           resources {
