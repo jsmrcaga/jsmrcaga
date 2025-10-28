@@ -1,0 +1,19 @@
+auth:
+  secret-key: ${GLANCE_SECRET_KEY}
+  users:
+    jsmrcaga:
+      password-hash: $2a$10$9iAb9fuAA980OLKt.lQpleuHZJ0ugaSIzFV1tlmViHWV402KFnBAm
+
+server:
+  port: ${GLANCE_PORT}
+  proxied: true
+  assets-path: /app/assets
+
+branding:
+  app-name: CONTROL Dashboard
+  logo-url: /assets/control-logo.png
+  favicon-url: /assets/control-logo.png
+  app-icon-url: /assets/control-logo.png
+
+pages:
+  - $include: homelab.yml
