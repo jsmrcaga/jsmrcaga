@@ -26,6 +26,12 @@ module flagsmith {
   org_name = "control"
 }
 
+module glance {
+  source = "./glance"
+
+  secret_key = var.glance.secret_key
+}
+
 
 # Monitoring
 module prometheus {
