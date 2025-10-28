@@ -59,3 +59,10 @@ variable prometheus {
 	})
 	sensitive = true
 }
+
+variable glance {
+	type = object({
+		secret_key = string
+	})
+	sensitive = true
+}
