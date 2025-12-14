@@ -66,3 +66,18 @@ variable glance {
 	})
 	sensitive = true
 }
+
+variable homedash {
+	sensitive = true
+	type = object({
+		secrets = object({
+			UNIFI_LOCAL_ENDPOINT = string
+			UNIFI_LOCAL_API_KEY = string
+		})
+
+		github = object({
+			username = string
+			token = string
+		})
+	})
+}

@@ -32,6 +32,13 @@ module glance {
   secret_key = var.glance.secret_key
 }
 
+module homedash {
+  source = "./homedash"
+
+  secrets = var.homedash.secrets
+  github = var.homedash.github
+}
+
 
 # Monitoring
 module prometheus {
