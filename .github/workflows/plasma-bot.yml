@@ -6,6 +6,9 @@ on:
       - plasma-bot-v*
   pull_request:
     types: [opened, synchronize]
+    paths:
+      - 'plasma-bot/**'
+      - '.github/workflows/plasma-bot.yml'
 
 defaults:
   run:
