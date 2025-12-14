@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/jsmrcaga/jsmrcaga/issues"
   },
-  "homepage": "https://github.com/jsmrcaga/jsmrcaga#readme"
+  "homepage": "https://github.com/jsmrcaga/jsmrcaga#readme",
+  "workspaces": [
+    "apps/*"
+  ]
 }

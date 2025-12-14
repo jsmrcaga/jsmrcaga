@@ -1,0 +1,10 @@
+.counter {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+
+	padding: var(--spacing-xl);
+
+	font-size: var(--text-m);
+	opacity: 0.5;
+}

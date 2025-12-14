@@ -1,0 +1,26 @@
+import Image from "next/image";
+import styles from "./page.module.css";
+
+import { Page } from '../components/page';
+import { Swiper } from '../components/swiper';
+import { Reloader } from './components/reloader';
+import { KubernetesNode } from "./components/kubernetes/node";
+import { UnifiNetwork } from "./components/network/unifi";
+
+export default function Home() {
+  return (
+    <>
+      <Swiper>
+        <Page name="Network" description={(new URL(process.env.UNIFI_LOCAL_ENDPOINT)).host}>
+          <UnifiNetwork/>
+        </Page>
+
+        {/*<Page name="k3s cluster">
+          <KubernetesNode name="jo-home-lab-1" ip="10.0.0.2"/>
+          <KubernetesNode name="jo-home-lab" ip="10.0.0.2"/>
+        </Page>*/}
+      </Swiper>
+      <Reloader/>
+    </>
+  );
+}
