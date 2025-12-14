@@ -11,7 +11,8 @@ export default function Home() {
   return (
     <>
       <Swiper>
-        <Page name="Network" description={(new URL(process.env.UNIFI_LOCAL_ENDPOINT)).host}>
+        {/* Default in order to allow next to pre-render the page without secrets */}
+        <Page name="Network" description={(new URL(process.env.UNIFI_LOCAL_ENDPOINT || 'https://0.0.0.0')).host}>
           <UnifiNetwork/>
         </Page>
 

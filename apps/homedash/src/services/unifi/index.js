@@ -45,6 +45,12 @@ export class Unifi {
 		headers = {},
 		...options
 	} = {}) {
+		if(!this.local_endpoint) {
+			const error = new Error('No Unifi endpoint');
+			error.code = 'NO_UNIFI_ENDPOINT';
+			throw error;
+		}
+
 		const url = new URL(`${this.local_endpoint}/${path}`);
 		if(query && Object.keys(query).length) {
 			for(const [k, v] of Object.entries(query)) {

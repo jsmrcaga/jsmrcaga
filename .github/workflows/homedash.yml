@@ -1,0 +1,58 @@
+name: Homedash
+
+on:
+  push:
+    tags:
+      - homedash-v*
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - "apps/homedash/**"
+      - ".github/workflows/homedash.yml"
+
+defaults:
+  run:
+    shell: bash
+    working-directory: ./apps/homedash
+
+jobs:
+  build_and_push:
+    permissions:
+      packages: write
+      contents: read
+
+    name: Build & Push Docker
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get docker tag from git tag
+        id: tag
+        env:
+          VERSION_TAG: ${{ github.ref_name }}
+          # removes everything up to dash (*-), so name-v1.2.3 => v1.2.3
+        run: |
+          #!/bin/bash
+
+          set -e
+
+          if [[ "${{ github.event_name }}" == 'pull_request' ]]; then
+            echo "tag=jsmrcaga/homedash:pull_request" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          version=${VERSION_TAG##homedash-}
+          tag="ghcr.io/jsmrcaga/homedash:${version}"
+          echo "tag=${tag}" >> "$GITHUB_OUTPUT"
+
+      - run: docker build -t ${{ steps.tag.outputs.tag }} --build-context monorepo=../../ .
+
+      - name: Docker login
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u jsmrcaga --password-stdin
+        if: ${{ github.event_name == 'push' }}
+
+      - run: docker push ${{ steps.tag.outputs.tag }}
+        if: ${{ github.event_name == 'push' }}
+
+
