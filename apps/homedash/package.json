@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "build:docker": "docker build -t homedash:${VERSION} --build-context monorepo=../../ ."
   },
   "dependencies": {
     "next": "16.0.10",
