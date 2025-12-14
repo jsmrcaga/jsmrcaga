@@ -1,0 +1,40 @@
+.chart-container {
+	width: 100%;
+	height: 100%;
+}
+
+.full-size {
+	width: 100%;
+	height: 100%;
+}
+
+.chart-overlay {
+	display: flex;
+	position: relative;
+}
+
+.overlay {
+	position: absolute;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+
+	& > div {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+
+		& > h1 {
+			font-size: var(--text-xxl);
+		}
+
+		& > h2 {
+			font-size: var(--text-xl);
+		}
+	}
+}
+
+
