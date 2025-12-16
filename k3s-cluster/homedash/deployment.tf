@@ -23,6 +23,8 @@ resource kubernetes_deployment_v1 homedash {
       }
 
       spec {
+        host_network = true
+
         image_pull_secrets {
           name = kubernetes_secret_v1.ghcr.metadata[0].name
         }
