@@ -5,7 +5,7 @@ resource kubernetes_service_v1 homedash {
   }
 
   spec {
-    type = "ClusterIP"
+    type = "LoadBalancer"
 
     selector = {
       app = "homedash"
