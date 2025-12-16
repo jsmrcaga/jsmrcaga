@@ -75,6 +75,11 @@ variable homedash {
 			UNIFI_LOCAL_API_KEY = string
 		})
 
+		kube = object({
+			ca_data = string
+			server_address = string
+		})
+
 		github = object({
 			username = string
 			token = string

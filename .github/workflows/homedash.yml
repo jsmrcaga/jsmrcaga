@@ -56,7 +56,9 @@ jobs:
         if: ${{ github.event_name == 'push' }}
 
       - name: Create kube cluster access config
-        run: echo ${{ secrets.KUBE_CLUSTER_B64 }} | base64 --decode >> /tmp/kube.yml
+        run: echo ${{ secrets.KUBE_CLUSTER_B64_HOMEDASH }} | base64 --decode >> /tmp/kube.yml
+        if: ${{ github.event_name == 'push' }}
 
       - name: Update image in k8s
         run: kubectl --kubeconfig /tmp/kube.yml set image -n homedash deployment/homedash app=${{ steps.tag.outputs.tag }}
+        if: ${{ github.event_name == 'push' }}

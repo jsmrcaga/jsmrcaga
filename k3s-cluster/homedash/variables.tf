@@ -1,3 +1,11 @@
+variable kube {
+	sensitive = true
+	type = object({
+		ca_data = string
+		server_address = string
+	})
+}
+
 variable secrets {
 	sensitive = true
 	type = object({

@@ -37,6 +37,7 @@ module homedash {
 
   secrets = var.homedash.secrets
   github = var.homedash.github
+  kube = var.homedash.kube
 }
 
 
