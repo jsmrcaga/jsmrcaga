@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { connection } from 'next/server'
 import styles from "./page.module.css";
 
 import { Page } from '../components/page';
@@ -7,7 +7,9 @@ import { Reloader } from './components/reloader';
 import { KubernetesNode } from "./components/kubernetes/node";
 import { UnifiNetwork } from "./components/network/unifi";
 
-export default function Home() {
+export default async function Home() {
+  await connection();
+
   return (
     <>
       <Swiper>
