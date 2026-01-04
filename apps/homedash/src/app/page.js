@@ -6,12 +6,14 @@ import { Swiper } from '../components/swiper';
 import { Reloader } from './components/reloader';
 import { KubernetesNode } from "./components/kubernetes/node";
 import { UnifiNetwork } from "./components/network/unifi";
+import { Overlay } from './components/overlay';
 
 export default async function Home() {
   await connection();
 
   return (
     <>
+      <Overlay/>
       <Swiper>
         {/* Default in order to allow next to pre-render the page without secrets */}
         <Page name="Network" description={(new URL(process.env.UNIFI_LOCAL_ENDPOINT || 'https://0.0.0.0')).host}>

@@ -34,12 +34,12 @@ function TextStats({ data, combined_series }) {
 	return (
 		<div className={classnames(Styles['full-size'], Styles.overlay)}>
 			<div>
-				<h1 style={{ color: COLOR_PAIRS['WAN2'].down }}>⬇︎ <MbpsFormatter number={last_values['WAN2_download']}/></h1>
-				<h2 style={{ color: COLOR_PAIRS['WAN'].down }}>⬇︎ <MbpsFormatter number={last_values['WAN_download']}/></h2>
+				{ last_values['WAN2_download'] ? <h1 style={{ color: COLOR_PAIRS['WAN2'].down }}>⬇︎ <MbpsFormatter number={last_values['WAN2_download']}/></h1> : <h1>DOWN</h1> }
+				{ last_values['WAN_download'] ? <h2 style={{ color: COLOR_PAIRS['WAN'].down }}>⬇︎ <MbpsFormatter number={last_values['WAN_download']}/></h2> : <h2>DOWN</h2> }
 			</div>
 			<div>
-				<h1 style={{ color: COLOR_PAIRS['WAN2'].up }}>⬆︎ <MbpsFormatter number={last_values['WAN2_upload']}/></h1>
-				<h2 style={{ color: COLOR_PAIRS['WAN'].up }}>⬆︎ <MbpsFormatter number={last_values['WAN_upload']}/></h2>
+				{ last_values['WAN2_upload'] ? <h1 style={{ color: COLOR_PAIRS['WAN2'].up }}>⬆︎ <MbpsFormatter number={last_values['WAN2_upload']}/></h1> : <h1>DOWN</h1> }
+				{ last_values['WAN_upload'] ? <h2 style={{ color: COLOR_PAIRS['WAN'].up }}>⬆︎ <MbpsFormatter number={last_values['WAN_upload']}/></h2> : <h2>DOWN</h2> }
 			</div>
 		</div>
 	);
