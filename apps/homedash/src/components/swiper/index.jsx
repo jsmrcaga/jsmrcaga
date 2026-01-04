@@ -71,7 +71,6 @@ function Pager({ scroller, count }) {
 				}}
 				onClick={() => go_to_page(i)}
 			>
-				{i+1}
 			</div>
 		);
 	}
