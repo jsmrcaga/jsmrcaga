@@ -1,4 +1,10 @@
 resource kubernetes_deployment_v1 homedash {
+  lifecycle {
+    ignore_changes = [
+      spec[0].template[0].spec[0].container[0].image
+    ]
+  }
+
   wait_for_rollout = false
 
   metadata {
@@ -8,6 +14,13 @@ resource kubernetes_deployment_v1 homedash {
 
   spec {
     replicas = 1
+    # We need re-create since new pods won't be able to
+    # spawn due to missing ports, so old won't ever be
+    # deleted
+    strategy {
+      type = "Recreate"
+    }
+
     selector {
       match_labels = {
         app = "homedash"
