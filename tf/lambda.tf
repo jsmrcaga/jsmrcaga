@@ -14,11 +14,11 @@ module svg_lambda {
     shared_credentials_file = "./aws.cred"
   }
 
-	source = "git@github.com:jsmrcaga/terraform-modules//lambda-api?ref=v0.2.3"
+	source = "git@github.com:jsmrcaga/terraform-modules//lambda-api?ref=v0.3.1"
 
   function_name = "github-readme-v2"
 
-  lambda_runtime = "nodejs20.x"
+  lambda_runtime = "nodejs24.x"
   lambda_handler = "index.handler"
 
   lambda_filename = data.archive_file.dummy_zip.output_path

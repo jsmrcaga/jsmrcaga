@@ -13,8 +13,8 @@ const respond = (data, status=200) => {
 	};
 };
 
-const handler = (event, context, callback) => {
-	Spotify.refreshToken().then(() => {
+const handler = (event, context) => {
+	return Spotify.refreshToken().then(() => {
 		return Spotify.currentTrack();
 	}).then(track => {
 		if(!track) {
@@ -30,22 +30,27 @@ const handler = (event, context, callback) => {
 		if(event.rawPath === '/spotify') {
 			const url = track.url || 'https://jocolina.com';
 			// Redirect to actual track
-			return callback(null, {
+			return {
 				statusCode: 302,
 				headers: {
 					Location: url,
 				},
 				body: null,
-			});
+			};
 		}
 
-		return SVG.create(track);
-	}).then(svg => {
-		// Respond from lambda
-		return callback(null, respond(svg));
+		return SVG.create(track).then(svg => {
+			return respond(svg);
+		});
 	}).catch(e => {
 		console.error(e);
-		return callback(e, respond('Server Error', 500));
+		return {
+			statusCode: 500,
+			headers: {
+				Location: url,
+			},
+			body: 'Server Error',
+		};
 	});
 };
 
