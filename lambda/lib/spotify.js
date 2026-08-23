@@ -10,6 +10,31 @@ class Spotify {
 		return Buffer.from(`${this.client_id}:${this.client_secret}`).toString('base64');
 	}
 
+	getOauthUrl({
+		redirect_uri_endpoint='127.0.0.1',
+		port=1234,
+		path='/'
+	}) {
+		const scopes = ['user-read-currently-playing', 'user-read-private', 'user-read-email'];
+		const scope = encodeURIComponent(scopes.join(' '));
+		return `https://accounts.spotify.com/authorize?client_id=${this.client_id}&response_type=code&redirect_uri=http://${redirect_uri_endpoint}:${port}${path}&scope=${scope}`;
+	}
+
+	exchangeCode({ code, redirect_uri_endpoint='127.0.0.1', port=1234, path='/' }={}) {
+		return fetch('https://accounts.spotify.com/api/token', {
+			method: 'POST',
+			headers: {
+				Authorization: `Basic ${this.auth()}`,
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: new URLSearchParams({
+				code,
+				grant_type: 'authorization_code',
+				redirect_uri: `http://${redirect_uri_endpoint}:${port}${path}`
+			}).toString()
+		}).then((response) => response.json());
+	}
+
 	refreshToken() {
 		const data = new URLSearchParams({
 			grant_type: 'refresh_token',

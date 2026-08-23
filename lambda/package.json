@@ -4,9 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "try": "source .env && node test.js"
+    "test": "npm run try",
+    "try": "source .env && node test.js",
+    "oauth": "node ./scripts/refresh-spotify-token.js"
   },
   "author": "Jo Colina <jo@jocolina.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "fastify": "^5.12.0"
+  }
 }
