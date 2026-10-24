@@ -46,5 +46,10 @@ locals {
     volume_name = null
     container_path = "/config"
     capacity = "10Gi"
+  }, {
+    name = "plex-media-nas"
+    volume_name = kubernetes_persistent_volume_v1.nas_media_volume.metadata[0].name
+    container_path = "/nas"
+    capacity = "440Gi"
   }, ]
 }
