@@ -13,14 +13,18 @@ export const Overlay = () => {
 	const [rendered, setRendered] = React.useState(false);
 
 	React.useEffect(() => {
-		const timeout = setTimeout(() => {
-			setRendered(true);
-		}, MAX_IDLE_TIME);
+		let timeout = null;
+		if(!rendered) {
+			timeout = setTimeout(() => {
+				setRendered(true);
+			}, MAX_IDLE_TIME);
+		}
 
 		return () => {
+
 			clearTimeout(timeout);
 		};
-	}, []);
+	}, [rendered]);
 
 	if(!rendered) {
 		return null;
