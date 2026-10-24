@@ -32,3 +32,37 @@ resource kubernetes_persistent_volume_v1 media_volume {
     }
   }
 }
+
+resource kubernetes_persistent_volume_v1 nas_media_volume {
+  metadata {
+    name = "plex-nas-media-volume"
+  }
+
+  spec {
+    node_affinity {
+      required {
+        node_selector_term {
+          match_expressions {
+            key = "ethernet-only"
+            operator = "In"
+            values = ["true"]
+          }
+        }
+      }
+    }
+
+    storage_class_name = local.main_storage_class_name
+
+    access_modes = ["ReadWriteOnce"]
+    capacity = {
+      storage = "440Gi"
+    }
+
+    persistent_volume_source {
+      # local because we're mounting a whole disk
+      local {
+        path = "/storage/nas/media/plex"
+      }
+    }
+  }
+}
