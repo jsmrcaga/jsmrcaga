@@ -1,0 +1,25 @@
+{
+	"tags": {
+		"allowUnknownTags": true
+	},
+	"source": {
+		"include": ["./src"],
+		"excludePattern": "node_modules|test"
+	},
+	"plugins": ["plugins/markdown"],
+	"opts": {
+		"recurse": true,
+		"destination": "./jsdoc",
+		"template": "node_modules/clean-jsdoc-theme/dist",
+		"siteName": "@control/ledger",
+		"readme": "./README.md",
+		"menu": [
+			{ "title": "Home", "link": "/", "target": "_self", "icon": "lucide:home" }
+		]
+	},
+	"templates": {
+		"default": {
+			"outputSourceFiles": false
+		}
+	}
+}

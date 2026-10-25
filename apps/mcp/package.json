@@ -1,0 +1,35 @@
+{
+  "name": "mcp",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "mocha": "mocha --recursive --exit ./test",
+    "docker:build": "docker compose -f ./.docker/docker-compose.yml build --no-cache",
+    "local": "nodemon src/index.js",
+    "dev": "docker compose -f ./.docker/docker-compose.yml -f ./.docker/docker-compose.local.yml up",
+    "down": "docker compose -f ./.docker/docker-compose.yml -f ./.docker/docker-compose.local.yml down",
+    "test": "docker compose -f ./.docker/docker-compose.yml run --rm app npm run mocha",
+    "exec": "docker compose -f ./.docker/docker-compose.yml run --rm app",
+    "docs:build": "jsdoc -c ./jsdoc.json",
+    "docs:serve": "npx serve -p 3333 jsdoc",
+    "docs": "npm run docs:build && npm run docs:serve"
+  },
+  "keywords": [],
+  "author": "Jo Colina <jo@jocolina.com>",
+  "license": "MIT",
+  "type": "commonjs",
+  "devDependencies": {
+    "chai": "^4.5.0",
+    "clean-jsdoc-theme": "^5.2.1",
+    "jsdoc": "^4.0.5",
+    "mocha": "^12.0.3",
+    "nodemon": "^3.1.14",
+    "pino-pretty": "^13.2.0"
+  },
+  "dependencies": {
+    "@sentry/node": "^11.9.0",
+    "fastify": "^5.12.7"
+  }
+}

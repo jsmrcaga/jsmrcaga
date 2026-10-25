@@ -1,0 +1,10 @@
+services:
+  app:
+    image: jsmrcaga/mcp
+    build:
+      dockerfile: .docker/Dockerfile
+      context: ..
+
+    volumes:
+      - ..:/app
+      - /app/node_modules
